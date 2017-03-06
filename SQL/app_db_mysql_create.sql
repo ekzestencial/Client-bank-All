@@ -61,7 +61,7 @@ CREATE TABLE transaction (
 	value INT NOT NULL,
 	date DATETIME NOT NULL,
 	PRIMARY KEY (transaction_id),
-	FOREIGN KEY (account) REFERENCES account(account_id)
+	FOREIGN KEY (account_id) REFERENCES account(account_id)
 );
 
 CREATE TABLE notification (
