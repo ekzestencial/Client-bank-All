@@ -57,11 +57,11 @@ CREATE TABLE account (
 
 CREATE TABLE transaction (
 	transaction_id BIGINT NOT NULL,
-	accaount_id BIGINT NOT NULL,
+	account_id BIGINT NOT NULL,
 	value INT NOT NULL,
 	date DATETIME NOT NULL,
 	PRIMARY KEY (transaction_id),
-	FOREIGN KEY (accaount_id) REFERENCES account(account_id)
+	FOREIGN KEY (account) REFERENCES account(account_id)
 );
 
 CREATE TABLE notification (
