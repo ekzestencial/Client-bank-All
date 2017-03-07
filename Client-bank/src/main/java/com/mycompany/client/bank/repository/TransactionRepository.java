@@ -6,7 +6,6 @@
 package com.mycompany.client.bank.repository;
 
 import com.mycompany.client.bank.jpa.Transaction;
-import java.io.Serializable;
 import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 

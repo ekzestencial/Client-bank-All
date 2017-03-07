@@ -15,4 +15,5 @@ import org.springframework.data.repository.CrudRepository;
 public interface BankRepository extends CrudRepository<Bank, Long>{
      @Override
      public List<Bank> findAll();
+     
 }
