@@ -15,5 +15,12 @@ import org.springframework.data.repository.CrudRepository;
 public interface BankRepository extends CrudRepository<Bank, Long>{
      @Override
      public List<Bank> findAll();
-     
+    public Bank findById(Long id);
+    public List<Bank> findByNameIgnoreCase(String Name);
+    public List<Bank> findByDepositPersentGreaterThanOrEquality(int deposit_persent);
+    public List<Bank> findByCreditPersentLessThanOrEquality(int credit_persent);
+    public Bank removeById(Long id);
+    public List<Bank> removeByNameIgnoreCase(String Name);
+    public List<Bank> removeByDepositPersentBetween(int deposit_persent1, int deposit_persent2);
+    public List<Bank> removeByCreditPersentBetween(int credit_persent1, int credit_persent2);
 }
