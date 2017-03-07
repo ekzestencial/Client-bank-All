@@ -5,10 +5,16 @@
  */
 package com.mycompany.client.bank.repository;
 
+import com.mycompany.client.bank.jpa.Transaction;
+import java.io.Serializable;
+import java.util.List;
+import org.springframework.data.repository.CrudRepository;
+
 /**
  *
  * @author artem
  */
-public class TransactionRepository {
-    
+public interface TransactionRepository extends CrudRepository<Transaction, Long>{
+    @Override
+     public List<Transaction> findAll();
 }
