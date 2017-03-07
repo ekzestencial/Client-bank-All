@@ -18,16 +18,11 @@ public interface TransactionRepository extends CrudRepository<Transaction, Long>
              @Override
      public List<Transaction> findAll();
     public Transaction findById(Long id);
-    public List<Transaction> findByValue(int value);
-    public List<Transaction> findByValueLessThanOrEquality(int value);
-    public List<Transaction> findByValueGreaterThanOrEquality(int value);
-    public List<Transaction> findByDate(Date date);
-    public List<Transaction> findByDateLessThanOrEquality(Date date);
-    public List<Transaction> findByDateGreaterThanOrEquality(Date date);
+    public List<Transaction> findByValueBetween(int value1,int value2);
+    public List<Transaction> findByDateBetween(Date date1, Date date2);
     public List<Transaction> findByAccaountId(Account accaountId);
     public Transaction removeById(Long id);
-    public List<Transaction> removeByValueLessThanOrEquality(int value);
-    public List<Transaction> removeByValueGreaterThanOrEquality(int value);
-    public List<Transaction> removeByDate(Date date);
+    public List<Transaction> removeByValueBetween(int value1, int value2);
+    public List<Transaction> removeByDateBetween(Date date1, Date date2);
     public List<Transaction> removeByAccaountId(Account accaountId);
 }
