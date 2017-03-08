@@ -25,4 +25,14 @@ public class TransactionService {
     public Transaction findByTransactionId(Long id){
     return transactionrep.findOne(id);
     }
+    public Transaction addTransaction(Transaction transaction) {
+        return transactionrep.save(transaction);
+    }
+public void delTransaction(Long id){
+        Transaction t = transactionrep.findOne(id);
+        if(t!=null)transactionrep.delete(t);
+    }
+public Transaction updateTransaction(Transaction  transaction) {
+        return transactionrep.save(transaction);
+    }
 }
