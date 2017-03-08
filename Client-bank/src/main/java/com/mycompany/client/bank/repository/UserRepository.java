@@ -16,5 +16,5 @@ import java.util.List;
 public interface UserRepository extends CrudRepository<Appuser, Long>{
 	 @Override
     public List<Appuser> findAll();
-    public List<Appuser> findById();
+    //public List<Appuser> findById();
 }
