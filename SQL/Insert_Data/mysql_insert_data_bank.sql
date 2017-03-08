@@ -1,10 +1,6 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-/**
- * Author:  artem
- * Created: Mar 8, 2017
- */
+INSERT INTO bank(bank_id, name, deposit_persent, credit_persent) 
+            VALUES (1, 'Alfa_Bank', 10, 45),
+                   (2, 'Privat', 18, 47),
+                   (3, 'Oschad', 5, 50),
+                   (4, 'Fido', 30, 90);
 
