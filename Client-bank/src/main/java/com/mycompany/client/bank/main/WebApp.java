@@ -3,19 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package com.mycompany.client.bank.main;
 
 /**
  *
- * @author artem
+ * @author ekzestencial
  */
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class WebApplication {
+public class WebApp {
 
 	public static void main(String[] args) {
-             SpringApplication.run(WebApplication.class, args);
+             SpringApplication.run(WebApp.class, args);
 	}
 
 
