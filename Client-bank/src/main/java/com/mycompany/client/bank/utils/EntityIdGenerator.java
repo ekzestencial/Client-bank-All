@@ -6,13 +6,8 @@
 package com.mycompany.client.bank.utils;
 
 import java.util.UUID;
-
-/**
- *
- * @author ekzestencial
- */
 public class EntityIdGenerator {
-	    public static Long random(){
+        public static Long random(){
         Long l = UUID.randomUUID().getLeastSignificantBits();
         if(l<0){
             l=-l;
