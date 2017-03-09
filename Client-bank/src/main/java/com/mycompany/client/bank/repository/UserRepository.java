@@ -9,12 +9,20 @@ import java.io.Serializable;
 import org.springframework.data.repository.CrudRepository;
 import com.mycompany.client.bank.jpa.Appuser;
 import java.util.List;
+
 /**
  *
  * @author ekzestencial
  */
-public interface UserRepository extends CrudRepository<Appuser, Long>{
-	 @Override
-    public List<Appuser> findAll();
-    //public List<Appuser> findById();
+public interface UserRepository extends CrudRepository<Appuser, Long> {
+
+	@Override
+	public List<Appuser> findAll();
+	@Override
+	public Appuser findOne(Long index);
+	//public Appuser findByLastId();
+	//public Appuser findUserById(Long index);
+	
+
+
 }
