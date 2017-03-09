@@ -87,11 +87,11 @@ public class Transaction implements Serializable {
 		this.date = date;
 	}
 
-	public Account getAccaountId() {
+	public Account getAccountId() {
 		return accountId;
 	}
 
-	public void setAccaountId(Account accaountId) {
+	public void setAccountId(Account accaountId) {
 		this.accountId = accaountId;
 	}
 

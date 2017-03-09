@@ -63,7 +63,7 @@ public class Account implements Serializable {
 	@JoinColumn(name = "status_id", referencedColumnName = "status_id")
         @ManyToOne(optional = false)
 	private Status statusId;
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "accaountId")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "accountId")
 	private Collection<Transaction> transactionCollection;
 
 	public Account() {

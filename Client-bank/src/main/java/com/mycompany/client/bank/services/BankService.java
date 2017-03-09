@@ -43,7 +43,7 @@ public void delBank(Long id){
         if(b!=null){
            List<Account> tmp_accaoutn=accountRepository.removeByBankId(b);
            for(Account ac:tmp_accaoutn)
-           transactionRepository.removeByAccaountId(ac);
+           transactionRepository.removeByAccountId(ac);
            bankRepository.delete(b);
         }
     }

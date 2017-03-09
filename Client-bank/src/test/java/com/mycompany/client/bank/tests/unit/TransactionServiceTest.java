@@ -38,17 +38,18 @@ public class TransactionServiceTest {
         Transaction tmp=transactionService.findByTransactionId(2L);
         assertNotNull(tmp);
     }
-    /*@Test
+    @Test
     public void AddTransaction() throws Exception {
         Long tr_id = EntityIdGenerator.random();
          Transaction tr = new Transaction(tr_id);
-         tr.setAccaountId(new Account(1L));
+         tr.setAccountId(new Account(1L));
          tr.setValue(2000);
          tr.setDate(Date.from(Instant.parse("2016-12-03T15:15:30.00Z")));
+         transactionService.addTransaction(tr);
          tr=transactionService.findByTransactionId(tr_id);
          assertNotNull("New Transaction not found", tr);
          transactionService.delTransaction(tr_id);
          tr=transactionService.findByTransactionId(tr_id);
          assertNull("Can not delete transaction", tr);
-    }*/
+    }
 }
