@@ -46,9 +46,9 @@ public class Transaction implements Serializable {
         @Column(name = "date")
         @Temporal(TemporalType.TIMESTAMP)
 	private Date date;
-	@JoinColumn(name = "accaount_id", referencedColumnName = "account_id")
+	@JoinColumn(name = "account_id", referencedColumnName = "account_id")
         @ManyToOne(optional = false)
-	private Account accaountId;
+	private Account accountId;
 
 	public Transaction() {
 	}
@@ -88,11 +88,11 @@ public class Transaction implements Serializable {
 	}
 
 	public Account getAccaountId() {
-		return accaountId;
+		return accountId;
 	}
 
 	public void setAccaountId(Account accaountId) {
-		this.accaountId = accaountId;
+		this.accountId = accaountId;
 	}
 
 	@Override

@@ -7,6 +7,7 @@ package com.mycompany.client.bank.tests.unit;
 
 import com.mycompany.client.bank.jpa.Bank;
 import com.mycompany.client.bank.services.BankService;
+import com.mycompany.client.bank.utils.EntityIdGenerator;
 import static org.junit.Assert.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,9 +35,18 @@ public class BankServiceTest {
          Bank tmp=bankService.findByBankId(1L);
         assertNotNull(tmp);
     }
-    /*@Test
+    @Test
     public void AddBank() throws Exception {
-         Bank tmp=bankService.findByBankId(1L);
-        assert(tmp!=null);
-    }*/
+        Long user_id = EntityIdGenerator.random();
+         Bank ba = new Bank(user_id);
+         ba.setName("TestBank");
+         ba.setCreditPersent(19);
+         ba.setDepositPersent(15);
+         bankService.addBank(ba);
+         ba=bankService.findByBankId(user_id);
+         assertNotNull("New bank not found", ba);
+         bankService.delBank(user_id);
+         ba=bankService.findByBankId(user_id);
+         assertNull("Can not delete bank", ba);
+    }
 }
