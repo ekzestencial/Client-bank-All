@@ -19,7 +19,7 @@ public class NotificationService {
 		return notifRepo.findByUserId(user);
 	}
 	
-	public void addNotification(Notification n) {
-		notifRepo.save(n);
+	public Notification addNotification(Notification n) {
+		return notifRepo.save(n);
 	}
 }
