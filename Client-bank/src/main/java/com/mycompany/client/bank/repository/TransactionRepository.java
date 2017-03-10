@@ -19,8 +19,8 @@ public interface TransactionRepository extends CrudRepository<Transaction, Long>
     public List<Transaction> findAll();
     public List<Transaction> findByValueBetween(int value1,int value2);
     public List<Transaction> findByDateBetween(Date date1, Date date2);
-    public List<Transaction> findByAccaountId(Account accaountId);
+    public List<Transaction> findByAccountId(Account accountId);
     public List<Transaction> removeByValueBetween(int value1, int value2);
     public List<Transaction> removeByDateBetween(Date date1, Date date2);
-    public List<Transaction> removeByAccaountId(Account accaountId);
+    public List<Transaction> removeByAccountId(Account accaountId);
 }
