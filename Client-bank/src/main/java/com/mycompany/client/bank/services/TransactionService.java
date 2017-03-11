@@ -7,6 +7,7 @@ package com.mycompany.client.bank.services;
 
 import com.mycompany.client.bank.jpa.Transaction;
 import com.mycompany.client.bank.repository.TransactionRepository;
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,4 +36,10 @@ public void delTransaction(Long id){
 public Transaction updateTransaction(Transaction  transaction) {
         return transactionrep.save(transaction);
     }
+public List<Transaction> findByValue(int value1,int value2){
+return transactionrep.findByValueBetween(value1, value2);
+}
+public List<Transaction> findByDate(Date date1, Date date2){
+return transactionrep.findByDateBetween(date1, date2);
+}
 }

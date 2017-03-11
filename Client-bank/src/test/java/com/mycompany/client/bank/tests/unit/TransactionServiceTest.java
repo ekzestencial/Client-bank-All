@@ -11,6 +11,7 @@ import com.mycompany.client.bank.services.TransactionService;
 import com.mycompany.client.bank.utils.EntityIdGenerator;
 import java.time.Instant;
 import java.util.Date;
+import java.util.List;
 import static org.junit.Assert.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -51,5 +52,15 @@ public class TransactionServiceTest {
          transactionService.delTransaction(tr_id);
          tr=transactionService.findByTransactionId(tr_id);
          assertNull("Can not delete transaction", tr);
+    }
+    @Test
+    public void findByValueTest(){
+    List<Transaction> tr_list=transactionService.findByValue(10, 96);
+     assert(!tr_list.isEmpty());
+    }
+    @Test
+    public void findByDateTest(){
+    List<Transaction> tr_list=transactionService.findByDate(Date.from(Instant.parse("2007-12-03T15:15:30.00Z")), Date.from(Instant.now()));
+     assert(!tr_list.isEmpty());
     }
 }

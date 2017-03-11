@@ -8,6 +8,7 @@ package com.mycompany.client.bank.tests.unit;
 import com.mycompany.client.bank.jpa.Bank;
 import com.mycompany.client.bank.services.BankService;
 import com.mycompany.client.bank.utils.EntityIdGenerator;
+import java.util.List;
 import static org.junit.Assert.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -48,5 +49,16 @@ public class BankServiceTest {
          bankService.delBank(user_id);
          ba=bankService.findByBankId(user_id);
          assertNull("Can not delete bank", ba);
+    }
+    @Test
+    public void FindByPartName() throws Exception {
+        List<Bank> temp = bankService.findByPartBankName("Alfa");
+        assert(!temp.isEmpty());
+    }
+    @Test
+    public void FindByPersent() throws Exception {
+        List<Bank> temp = bankService.findByBankPersent(10, 0);
+        for(Bank p : temp)System.out.println(p.getName());
+        assert(!temp.isEmpty());
     }
 }

@@ -17,10 +17,10 @@ import java.util.Date;
 public interface TransactionRepository extends CrudRepository<Transaction, Long>{
              @Override
     public List<Transaction> findAll();
-    public List<Transaction> findByValueBetween(int value1,int value2);
+    public List<Transaction> findByValueBetween(double value1,double value2);
     public List<Transaction> findByDateBetween(Date date1, Date date2);
     public List<Transaction> findByAccountId(Account accountId);
-    public List<Transaction> removeByValueBetween(int value1, int value2);
+    public List<Transaction> removeByValueBetween(double value1, double value2);
     public List<Transaction> removeByDateBetween(Date date1, Date date2);
     public List<Transaction> removeByAccountId(Account accaountId);
 }

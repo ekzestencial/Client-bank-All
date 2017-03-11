@@ -14,7 +14,8 @@ import org.springframework.data.repository.CrudRepository;
 public interface BankRepository extends CrudRepository<Bank, Long>{
      @Override
     public List<Bank> findAll();
-    public List<Bank> findByNameIgnoreCase(String Name);
+    public Bank findByNameIgnoreCase(String Name);
+    public List<Bank> findByNameContainingIgnoreCase(String Name);
     public List<Bank> findByDepositPersentGreaterThan(int depositPersent);
     public List<Bank> findByCreditPersentLessThan(int creditPersent);
     public List<Bank> removeByNameIgnoreCase(String Name);
