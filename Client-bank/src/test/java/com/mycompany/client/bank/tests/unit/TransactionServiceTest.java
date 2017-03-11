@@ -48,8 +48,8 @@ public class TransactionServiceTest {
          transactionService.addTransaction(tr);
          tr=transactionService.findByTransactionId(tr_id);
          assertNotNull("New Transaction not found", tr);
-         //transactionService.delTransaction(tr_id);
-         //tr=transactionService.findByTransactionId(tr_id);
-         //assertNull("Can not delete transaction", tr);
+         transactionService.delTransaction(tr_id);
+         tr=transactionService.findByTransactionId(tr_id);
+         assertNull("Can not delete transaction", tr);
     }
 }

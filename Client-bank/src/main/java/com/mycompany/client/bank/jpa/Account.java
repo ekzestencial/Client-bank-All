@@ -46,7 +46,7 @@ public class Account implements Serializable {
 	private Long accountId;
 	@Basic(optional = false)
         @Column(name = "value")
-	private int value;
+	private double value;
 	@Basic(optional = false)
         @Column(name = "open_date")
         @Temporal(TemporalType.DATE)
@@ -63,7 +63,7 @@ public class Account implements Serializable {
 	@JoinColumn(name = "status_id", referencedColumnName = "status_id")
         @ManyToOne(optional = false)
 	private Status statusId;
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "accountId")
+	@OneToMany(cascade = CascadeType.DETACH, mappedBy = "accountId")
 	private Collection<Transaction> transactionCollection;
 
 	public Account() {
@@ -87,7 +87,7 @@ public class Account implements Serializable {
 		this.accountId = accountId;
 	}
 
-	public int getValue() {
+	public double getValue() {
 		return value;
 	}
 

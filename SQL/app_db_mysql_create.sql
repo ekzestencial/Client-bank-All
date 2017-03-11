@@ -1,4 +1,3 @@
-
 CREATE TABLE role (
 	role_id BIGINT NOT NULL,
 	name varchar(20) NOT NULL UNIQUE,
@@ -46,7 +45,7 @@ CREATE TABLE account (
 	user_id BIGINT NOT NULL,
 	bank_id BIGINT NOT NULL,
 	status_id BIGINT NOT NULL,
-	value INT NOT NULL,
+	value DOUBLE(16,2) NOT NULL,
 	open_date DATE NOT NULL,
 	close_date DATE,
 	PRIMARY KEY (account_id),
@@ -58,7 +57,7 @@ CREATE TABLE account (
 CREATE TABLE transaction (
 	transaction_id BIGINT NOT NULL,
 	account_id BIGINT NOT NULL,
-	value INT NOT NULL,
+	value DOUBLE(16,2) NOT NULL,
 	date DATETIME NOT NULL,
 	PRIMARY KEY (transaction_id),
 	FOREIGN KEY (account_id) REFERENCES account(account_id)

@@ -41,7 +41,7 @@ public class Transaction implements Serializable {
 	private Long transactionId;
 	@Basic(optional = false)
         @Column(name = "value")
-	private int value;
+	private double value;
 	@Basic(optional = false)
         @Column(name = "date")
         @Temporal(TemporalType.TIMESTAMP)
@@ -71,7 +71,7 @@ public class Transaction implements Serializable {
 		this.transactionId = transactionId;
 	}
 
-	public int getValue() {
+	public double getValue() {
 		return value;
 	}
 
