@@ -8,6 +8,7 @@ package com.mycompany.client.bank.tests.unit;
 import com.mycompany.client.bank.jpa.Appuser;
 import com.mycompany.client.bank.jpa.Role;
 import com.mycompany.client.bank.jpa.Userdetails;
+import com.mycompany.client.bank.repository.UserRepository;
 import com.mycompany.client.bank.services.UserAndUserDetailsService;
 import com.mycompany.client.bank.utils.EntityIdGenerator;
 import java.text.DateFormat;
@@ -36,6 +37,8 @@ public class UserAndUserDetailsServiceTest {
 
 	@Autowired
 	private UserAndUserDetailsService userService;
+    
+ 
 
 	public UserAndUserDetailsServiceTest() {
 	}
@@ -74,7 +77,6 @@ public class UserAndUserDetailsServiceTest {
 		String name = userService.getUserById(index).getUsername();
 		assertEquals("admin", name);
 	}
-
 	@Test
 	public void AddUser() {
 		Long user_id = EntityIdGenerator.random();

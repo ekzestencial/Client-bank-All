@@ -9,9 +9,6 @@ import com.mycompany.client.bank.jpa.Appuser;
 import com.mycompany.client.bank.jpa.Userdetails;
 import com.mycompany.client.bank.repository.UserDetailsRepository;
 import com.mycompany.client.bank.repository.UserRepository;
-
-import static org.hamcrest.CoreMatchers.nullValue;
-
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

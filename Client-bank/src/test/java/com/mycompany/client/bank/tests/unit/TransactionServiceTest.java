@@ -63,4 +63,8 @@ public class TransactionServiceTest {
     List<Transaction> tr_list=transactionService.findByDate(Date.from(Instant.parse("2007-12-03T15:15:30.00Z")), Date.from(Instant.now()));
      assert(!tr_list.isEmpty());
     }
+    @Test
+    public void findByAccountId(){
+     assert(transactionService.getByAccountId(1L)!=null);
+    }
 }

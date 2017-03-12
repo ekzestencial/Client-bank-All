@@ -5,7 +5,9 @@
  */
 package com.mycompany.client.bank.services;
 
+import com.mycompany.client.bank.jpa.Account;
 import com.mycompany.client.bank.jpa.Transaction;
+import com.mycompany.client.bank.repository.AccountRepository;
 import com.mycompany.client.bank.repository.TransactionRepository;
 import java.util.Date;
 import java.util.List;
@@ -20,14 +22,15 @@ import org.springframework.stereotype.Service;
 public class TransactionService {
 	@Autowired
 	TransactionRepository transactionRep;
-
+        @Autowired
+        AccountRepository accountRep;
 	public List<Transaction> getAll() {
 		return transactionRep.findAll();
 	}
 	
 	public List<Transaction> getByAccountId(Long id) {
 		//достань транзакции для определенного аккаунта по его айдишки
-		return null;
+                return transactionRep.findByAccountId(accountRep.findOne(id));
 	}
 
 	public Transaction findByTransactionId(Long id) {
