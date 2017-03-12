@@ -40,7 +40,6 @@ CREATE TABLE account (
 	bank_id BIGINT NOT NULL,
 	value DOUBLE(16,2) NOT NULL,
 	open_date DATE NOT NULL,
-	close_date DATE,
 	PRIMARY KEY (account_id),
 	FOREIGN KEY (user_id) REFERENCES appuser(user_id),
 	FOREIGN KEY (bank_id) REFERENCES bank(bank_id)

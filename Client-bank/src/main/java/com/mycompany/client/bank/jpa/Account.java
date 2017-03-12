@@ -35,8 +35,7 @@ import javax.xml.bind.annotation.XmlTransient;
 	@NamedQuery(name = "Account.findAll", query = "SELECT a FROM Account a")
 	, @NamedQuery(name = "Account.findByAccountId", query = "SELECT a FROM Account a WHERE a.accountId = :accountId")
 	, @NamedQuery(name = "Account.findByValue", query = "SELECT a FROM Account a WHERE a.value = :value")
-	, @NamedQuery(name = "Account.findByOpenDate", query = "SELECT a FROM Account a WHERE a.openDate = :openDate")
-	, @NamedQuery(name = "Account.findByCloseDate", query = "SELECT a FROM Account a WHERE a.closeDate = :closeDate")})
+	, @NamedQuery(name = "Account.findByOpenDate", query = "SELECT a FROM Account a WHERE a.openDate = :openDate")})
 public class Account implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -51,9 +50,6 @@ public class Account implements Serializable {
         @Column(name = "open_date")
         @Temporal(TemporalType.DATE)
 	private Date openDate;
-	@Column(name = "close_date")
-        @Temporal(TemporalType.DATE)
-	private Date closeDate;
 	@JoinColumn(name = "user_id", referencedColumnName = "user_id")
         @ManyToOne(optional = false)
 	private Appuser userId;
@@ -98,14 +94,6 @@ public class Account implements Serializable {
 
 	public void setOpenDate(Date openDate) {
 		this.openDate = openDate;
-	}
-
-	public Date getCloseDate() {
-		return closeDate;
-	}
-
-	public void setCloseDate(Date closeDate) {
-		this.closeDate = closeDate;
 	}
 
 	public Appuser getUserId() {
