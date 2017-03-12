@@ -4,7 +4,6 @@
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>com.mycompany.client.bank.jpa.Role</class>
     <class>com.mycompany.client.bank.jpa.Appuser</class>
-    <class>com.mycompany.client.bank.jpa.Status</class>
     <class>com.mycompany.client.bank.jpa.Account</class>
     <class>com.mycompany.client.bank.jpa.Bank</class>
     <class>com.mycompany.client.bank.jpa.Userdetails</class>

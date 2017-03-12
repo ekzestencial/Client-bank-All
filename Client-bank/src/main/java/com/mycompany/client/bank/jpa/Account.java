@@ -60,9 +60,6 @@ public class Account implements Serializable {
 	@JoinColumn(name = "bank_id", referencedColumnName = "bank_id")
         @ManyToOne(optional = false)
 	private Bank bankId;
-	@JoinColumn(name = "status_id", referencedColumnName = "status_id")
-        @ManyToOne(optional = false)
-	private Status statusId;
 	@OneToMany(cascade = CascadeType.DETACH, mappedBy = "accountId")
 	private Collection<Transaction> transactionCollection;
 
@@ -125,14 +122,6 @@ public class Account implements Serializable {
 
 	public void setBankId(Bank bankId) {
 		this.bankId = bankId;
-	}
-
-	public Status getStatusId() {
-		return statusId;
-	}
-
-	public void setStatusId(Status statusId) {
-		this.statusId = statusId;
 	}
 
 	@XmlTransient

@@ -5,8 +5,8 @@
  */
 package com.mycompany.client.bank.repository;
 
-import java.io.Serializable;
 import org.springframework.data.repository.CrudRepository;
+
 import com.mycompany.client.bank.jpa.Appuser;
 import java.util.List;
 

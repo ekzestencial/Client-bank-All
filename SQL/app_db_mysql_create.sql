@@ -34,24 +34,16 @@ CREATE TABLE bank (
 	PRIMARY KEY (bank_id)
 );
 
-CREATE TABLE status (
-	status_id BIGINT NOT NULL,
-	name varchar(20) NOT NULL UNIQUE,
-	PRIMARY KEY (status_id)
-);
-
 CREATE TABLE account (
 	account_id BIGINT NOT NULL,
 	user_id BIGINT NOT NULL,
 	bank_id BIGINT NOT NULL,
-	status_id BIGINT NOT NULL,
 	value DOUBLE(16,2) NOT NULL,
 	open_date DATE NOT NULL,
 	close_date DATE,
 	PRIMARY KEY (account_id),
 	FOREIGN KEY (user_id) REFERENCES appuser(user_id),
-	FOREIGN KEY (bank_id) REFERENCES bank(bank_id),
-	FOREIGN KEY (status_id) REFERENCES status(status_id)
+	FOREIGN KEY (bank_id) REFERENCES bank(bank_id)
 );
 
 CREATE TABLE transaction (
