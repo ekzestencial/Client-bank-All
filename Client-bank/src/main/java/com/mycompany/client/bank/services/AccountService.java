@@ -18,4 +18,19 @@ public class AccountService {
 	public List<Account> getUserAccounts(Appuser user) {
 		return accountRepo.findByUserId(user);
 	}
+	
+	public Account addAccount(Account acc) {
+		return accountRepo.save(acc);
+	}
+	
+	public Account getAccount(Long id) {
+		return accountRepo.findOne(id);
+	}
+	
+	public void changeValue(Long id, double value) {
+		Account current = accountRepo.findOne(id);
+		double newValue = current.getValue() + value;
+		current.setValue(newValue);
+		accountRepo.save(current);
+	}
 }

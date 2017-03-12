@@ -18,28 +18,41 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class TransactionService {
-    @Autowired
-    TransactionRepository transactionrep;
-    public List<Transaction> getAll(){
-    return transactionrep.findAll();
-    }
-    public Transaction findByTransactionId(Long id){
-    return transactionrep.findOne(id);
-    }
-    public Transaction addTransaction(Transaction transaction) {
-        return transactionrep.save(transaction);
-    }
-public void delTransaction(Long id){
-        Transaction t = transactionrep.findOne(id);
-        if(t!=null)transactionrep.delete(t);
-    }
-public Transaction updateTransaction(Transaction  transaction) {
-        return transactionrep.save(transaction);
-    }
-public List<Transaction> findByValue(int value1,int value2){
-return transactionrep.findByValueBetween(value1, value2);
-}
-public List<Transaction> findByDate(Date date1, Date date2){
-return transactionrep.findByDateBetween(date1, date2);
-}
+	@Autowired
+	TransactionRepository transactionRep;
+
+	public List<Transaction> getAll() {
+		return transactionRep.findAll();
+	}
+	
+	public List<Transaction> getByAccountId(Long id) {
+		//достань транзакции для определенного аккаунта по его айдишки
+		return null;
+	}
+
+	public Transaction findByTransactionId(Long id) {
+		return transactionRep.findOne(id);
+	}
+
+	public Transaction addTransaction(Transaction transaction) {
+		return transactionRep.save(transaction);
+	}
+
+	public void delTransaction(Long id) {
+		Transaction t = transactionRep.findOne(id);
+		if (t != null)
+			transactionRep.delete(t);
+	}
+
+	public Transaction updateTransaction(Transaction transaction) {
+		return transactionRep.save(transaction);
+	}
+
+	public List<Transaction> findByValue(int value1, int value2) {
+		return transactionRep.findByValueBetween(value1, value2);
+	}
+
+	public List<Transaction> findByDate(Date date1, Date date2) {
+		return transactionRep.findByDateBetween(date1, date2);
+	}
 }
