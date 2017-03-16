@@ -78,6 +78,12 @@ public class UserAndUserDetailsServiceTest {
 		assertEquals("admin", name);
 	}
 	@Test
+	public void getUserByUsernamename(){
+	Appuser user = userService.getUserByName("admin");
+		assertNotNull(user);
+	}
+	//test of adduser,deluser and getUserDetailsByAppUser;
+	@Test
 	public void AddUser() {
 		Long user_id = EntityIdGenerator.random();
 		//new date
@@ -98,6 +104,9 @@ public class UserAndUserDetailsServiceTest {
 		ud.setLastName("TestLastName");
 		userService.addUser(au);
 		userService.addUserDetails(ud);
+		//getUserDetailsByAppuser
+		Userdetails userdetails=userService.getUserDetails(au);
+		assertNotNull(userdetails);
 		Appuser u = userService.getUserById(user_id);
 		assertNotNull("New user not found!", u);
 		userService.delUser(user_id);

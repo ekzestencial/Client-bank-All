@@ -20,7 +20,7 @@ public interface UserRepository extends CrudRepository<Appuser, Long> {
 	public List<Appuser> findAll();
 	@Override
 	public Appuser findOne(Long index);
-	//public Appuser findByLastId();
+	public Appuser findUserByUsername(String name);
 	//public Appuser findUserById(Long index);
 	
 

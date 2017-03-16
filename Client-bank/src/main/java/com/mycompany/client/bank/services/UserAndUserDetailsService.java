@@ -36,14 +36,12 @@ public class UserAndUserDetailsService {
 	}
 //
 	public Appuser getUserByName(String name) {
-		//верни юзера по никнейму
-		return null;
+		return userRepository.findUserByUsername(name);
 	}
 	
-	public UserDetails getUserDetails(Appuser user) {
-		//верни детали юзера
-		//в контроллере из апюреза и дитейлз надо будет с помощью маппера слепить API юзера
-		return null;
+	public Userdetails getUserDetails(Appuser user) {
+		Long userId=user.getUserId();
+		return userDetailsRepository.findUserByUserId(userId);
 	}
 
 	public Appuser addUser(Appuser au) {

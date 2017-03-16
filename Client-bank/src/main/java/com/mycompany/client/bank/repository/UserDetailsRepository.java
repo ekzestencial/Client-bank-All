@@ -12,4 +12,5 @@ import org.springframework.data.repository.CrudRepository;
  * @author ekzestencial
  */
 public interface UserDetailsRepository extends CrudRepository<Userdetails, Long>{
+	public Userdetails findUserByUserId(Long index);
 }
