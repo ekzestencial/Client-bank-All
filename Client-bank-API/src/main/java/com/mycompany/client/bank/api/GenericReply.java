@@ -5,15 +5,19 @@
  */
 package com.mycompany.client.bank.api;
 
-import java.util.ArrayList;
-import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author artem
  */
-public class LibTransactionReply extends GenericReply{
-      @XmlElement(required=true)
-    public List<LibTransaction> transaction = new ArrayList<>();
+@XmlRootElement
+public class GenericReply {
+    @XmlElement(required=true)
+    public Integer retcode = 0;
+    @XmlElement(required=true)
+    public String apiVer = "0.0.1";
+    @XmlElement(required=false)
+    public String error_message;
 }

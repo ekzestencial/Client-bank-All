@@ -87,7 +87,12 @@
             <groupId>org.mariadb.jdbc</groupId>
             <artifactId>mariadb-java-client</artifactId>
             <version>1.5.7</version>
-        </dependency>     
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>Client-bank-API</artifactId>
+            <version>${project.version}</version>
+        </dependency>    
     </dependencies>
     <build>
         <plugins>

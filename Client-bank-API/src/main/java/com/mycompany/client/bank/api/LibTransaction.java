@@ -5,10 +5,22 @@
  */
 package com.mycompany.client.bank.api;
 
+import java.util.Date;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  *
  * @author artem
  */
+@XmlRootElement
 public class LibTransaction {
-    
+    @XmlElement(required = true)
+    public Long transactionId;
+    @XmlElement(required = true)
+    public double value;
+    @XmlElement(required = true)
+    public Date date;
+    @XmlElement(required = true)
+    public Long accountId;
 }

@@ -5,10 +5,17 @@
  */
 package com.mycompany.client.bank.api;
 
+import java.util.ArrayList;
+import java.util.List;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  *
  * @author artem
  */
-public class LibBankReply {
-    
+@XmlRootElement
+public class LibBankReply extends GenericReply{
+    @XmlElement(required=true)
+    public List<LibBank> banks = new ArrayList<>();
 }
