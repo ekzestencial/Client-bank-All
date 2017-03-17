@@ -22,6 +22,4 @@ public class LibBank {
     public String creditPersent;
     @XmlElement(required=true)
     public String depositPersent;
-    @XmlElement(required=true)
-    public Long account_id;
 }

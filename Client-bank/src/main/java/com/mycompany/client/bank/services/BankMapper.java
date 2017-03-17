@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 package com.mycompany.client.bank.services;
+import com.mycompany.client.bank.api.LibBank;
+import com.mycompany.client.bank.jpa.Bank;
 import com.mycompany.client.bank.repository.BankRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -15,4 +17,34 @@ import org.springframework.stereotype.Component;
 public class BankMapper {
     @Autowired
     BankRepository bankRepository;
+    public LibBank fromInternal(Bank b) {
+        LibBank lb = null;
+        if (b != null) {
+            lb = new LibBank();
+            lb.bank_id=b.getBankId();
+            lb.name=b.getName();
+            lb.creditPersent=String.valueOf(b.getCreditPersent());
+            lb.depositPersent=String.valueOf(b.getDepositPersent());
+        }
+        return lb;
+    }
+        public Bank toInternal(LibBank lb) {
+        Bank b = null;
+        //first, check if it exists
+        if (lb.bank_id != null) {
+            b = bankRepository.findOne(lb.bank_id);
+        }
+        if (b == null) { //not found, create new
+            //logger.debug("Creating new user");
+            b = new Bank(lb.bank_id, lb.name, Integer.valueOf(lb.depositPersent), Integer.valueOf(lb.creditPersent));
+        }
+        else{
+        //logger.debug("Updating existing user");
+        b.setBankId(lb.bank_id);
+        b.setName(lb.name);
+        b.setDepositPersent(Integer.valueOf(lb.depositPersent));
+        b.setCreditPersent(Integer.valueOf(lb.creditPersent));
+        }
+        return b;
+    }
 }
