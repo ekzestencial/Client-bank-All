@@ -10,14 +10,19 @@ import com.mycompany.client.bank.jpa.Account;
 import com.mycompany.client.bank.jpa.Transaction;
 import com.mycompany.client.bank.repository.AccountRepository;
 import com.mycompany.client.bank.repository.TransactionRepository;
+import com.mycompany.client.bank.utils.String_Date_util;
 import java.time.Instant;
+import java.time.temporal.TemporalAccessor;
 import java.util.Date;
+import org.eclipse.persistence.jpa.jpql.parser.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  *
  * @author artem
  */
+@Component
 public class TransactionMapper {
     @Autowired
     TransactionRepository transactionRepository;
@@ -47,13 +52,13 @@ public class TransactionMapper {
         }
         if (t == null) { //not found, create new
             //logger.debug("Creating new user");
-            t = new Transaction(lt.transactionId, Integer.valueOf(lt.value), Date.from(Instant.parse(lt.date)));
+            t = new Transaction(lt.transactionId, Integer.valueOf(lt.value), String_Date_util.String_to_Date(lt.date));
         }
         else{
         //logger.debug("Updating existing user");
         t.setTransactionId(lt.transactionId);
         t.setValue(Integer.valueOf(lt.value));
-        t.setDate(Date.from(Instant.parse(lt.date)));
+        t.setDate(String_Date_util.String_to_Date(lt.date));
         }
         t.setAccountId(temp_acc);
         return t;
