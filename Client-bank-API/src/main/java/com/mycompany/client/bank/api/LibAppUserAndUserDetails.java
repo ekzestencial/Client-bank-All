@@ -14,7 +14,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement
 public class LibAppUserAndUserDetails {
-	@XmlElement(required = true)
+	@XmlElement(required =false) 
 	public Long user_id;
 	@XmlElement(required = true)
 	public String login;
