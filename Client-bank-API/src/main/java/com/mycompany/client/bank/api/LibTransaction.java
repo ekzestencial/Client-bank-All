@@ -18,7 +18,7 @@ public class LibTransaction {
     @XmlElement(required = true)
     public Long transactionId;
     @XmlElement(required = true)
-    public String value;
+    public double value;
     @XmlElement(required = true)
     public String date;
     @XmlElement(required = true)
