@@ -23,8 +23,8 @@ public class BankMapper {
             lb = new LibBank();
             lb.bank_id=b.getBankId();
             lb.name=b.getName();
-            lb.creditPersent=String.valueOf(b.getCreditPersent());
-            lb.depositPersent=String.valueOf(b.getDepositPersent());
+            lb.creditPersent=b.getCreditPersent();
+            lb.depositPersent=b.getDepositPersent();
         }
         return lb;
     }
@@ -36,14 +36,14 @@ public class BankMapper {
         }
         if (b == null) { //not found, create new
             //logger.debug("Creating new user");
-            b = new Bank(lb.bank_id, lb.name, Integer.valueOf(lb.depositPersent), Integer.valueOf(lb.creditPersent));
+            b = new Bank(lb.bank_id, lb.name, lb.depositPersent, lb.creditPersent);
         }
         else{
         //logger.debug("Updating existing user");
         b.setBankId(lb.bank_id);
         b.setName(lb.name);
-        b.setDepositPersent(Integer.valueOf(lb.depositPersent));
-        b.setCreditPersent(Integer.valueOf(lb.creditPersent));
+        b.setDepositPersent(lb.depositPersent);
+        b.setCreditPersent(lb.creditPersent);
         }
         return b;
     }

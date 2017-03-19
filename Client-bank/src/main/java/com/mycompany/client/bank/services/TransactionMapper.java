@@ -34,7 +34,7 @@ public class TransactionMapper {
             lt=new LibTransaction();
             lt.transactionId=t.getTransactionId();
             lt.date=t.getDate().toString();
-            lt.value=String.valueOf(t.getValue());
+            lt.value=t.getValue();
             lt.accountId=t.getAccountId().getAccountId();
         }
         return lt;
@@ -52,12 +52,12 @@ public class TransactionMapper {
         }
         if (t == null) { //not found, create new
             //logger.debug("Creating new user");
-            t = new Transaction(lt.transactionId, Integer.valueOf(lt.value), String_Date_util.String_to_Date(lt.date));
+            t = new Transaction(lt.transactionId, lt.value, String_Date_util.String_to_Date(lt.date));
         }
         else{
         //logger.debug("Updating existing user");
         t.setTransactionId(lt.transactionId);
-        t.setValue(Integer.valueOf(lt.value));
+        t.setValue(lt.value);
         t.setDate(String_Date_util.String_to_Date(lt.date));
         }
         t.setAccountId(temp_acc);
