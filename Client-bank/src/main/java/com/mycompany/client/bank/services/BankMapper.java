@@ -35,9 +35,7 @@ public class BankMapper {
         if (lb.bank_id != null) {
             b = bankRepository.findOne(lb.bank_id);
         }
-        else{
         new_Id=Long.valueOf(lb.name.hashCode());
-        }
         if (b == null) { //not found, create new
             //logger.debug("Creating new user");
             b = new Bank(new_Id, lb.name, lb.depositPersent, lb.creditPersent);
