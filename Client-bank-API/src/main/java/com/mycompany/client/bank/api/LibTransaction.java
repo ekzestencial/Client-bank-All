@@ -15,11 +15,11 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement
 public class LibTransaction {
-    @XmlElement(required = true)
+    @XmlElement(required = false)
     public Long transactionId;
     @XmlElement(required = true)
     public double value;
-    @XmlElement(required = true)
+    @XmlElement(required = false)
     public String date;
     @XmlElement(required = true)
     public Long accountId;
