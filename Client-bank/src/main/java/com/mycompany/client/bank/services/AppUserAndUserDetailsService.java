@@ -61,4 +61,8 @@ public class AppUserAndUserDetailsService {
 			userRepository.delete(id);
 		}
 	}
+	public Appuser getUserByUsernameAndPassword(String username, String password){
+	return userRepository.findUserByUsernameAndPassword(username, password);
+		
+	} 
 }

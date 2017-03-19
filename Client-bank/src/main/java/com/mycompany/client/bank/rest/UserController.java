@@ -21,21 +21,28 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 public class UserController {
-//	//checkAuthorization()	
-//        //RegisrateNewUser()
-//        //GetInfoForUserPage()
-//        //Notification()
-//	    @Autowired         
-//     AppUserAndUserDetailsService userService;
-//    @Autowired
-//    AppUserAndUserDetailsMapper userMapper;    
-//    
-//    @RequestMapping(path="/users/all",  method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-//    public LibAppUserAndUserDetailsReply getAllUsers(){
-//        LibAppUserAndUserDetailsReply reply = new LibAppUserAndUserDetailsReply();
-//        for(Appuser au: userService.getAllUsers()){
-//           reply.users.add(userMapper.fromInternal(au));    
-//        }
-//        return reply;
-//    }
+	//checkAuthorization()	
+        //RegisrateNewUser()
+        //GetInfoForUserPage()
+        //Notification()
+	    @Autowired         
+     AppUserAndUserDetailsService userService;
+    @Autowired
+    AppUserAndUserDetailsMapper userMapper;    
+    
+    
+    @RequestMapping(path="/users/all",  method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public LibAppUserAndUserDetailsReply getAllUsers(){
+        LibAppUserAndUserDetailsReply reply = new LibAppUserAndUserDetailsReply();
+        for(Appuser au: userService.getAllUsers()){
+           reply.users.add(userMapper.fromInternal(au));    
+        }
+        return reply;
+    }
+        @RequestMapping(path="/users/security/{username}/{password}",  method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public LibAppUserAndUserDetailsReply getUserById(@PathVariable String username,@PathVariable String password ){
+        LibAppUserAndUserDetailsReply reply = new LibAppUserAndUserDetailsReply();
+        reply.users.add(userMapper.fromInternal(userService.getUserByUsernameAndPassword(username, password)));
+        return reply;
+    }
 }

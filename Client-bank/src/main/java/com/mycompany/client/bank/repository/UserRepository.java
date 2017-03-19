@@ -21,6 +21,7 @@ public interface UserRepository extends CrudRepository<Appuser, Long> {
 	@Override
 	public Appuser findOne(Long index);
 	public Appuser findUserByUsername(String name);
+	public Appuser findUserByUsernameAndPassword(String username, String password);
 	//public Appuser findUserById(Long index);
 	
 

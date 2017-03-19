@@ -113,5 +113,10 @@ public class AppUserAndUserDetailsServiceTest {
 		u = userService.getUserById(user_id);
 		assertNull("Can not delete user!", u);
 	}
+	@Test
+	public void testGetUserAndPassword(){
+		Appuser user = userService.getUserByUsernameAndPassword("admin","d8578edf8458d06fbc5bb76a58c5");
+		assertNotNull(user);
+	}
 
 }
