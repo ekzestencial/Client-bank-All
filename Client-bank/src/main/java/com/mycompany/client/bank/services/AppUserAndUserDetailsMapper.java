@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
 public class AppUserAndUserDetailsMapper {
 //
 	@Autowired
-AppUserAndUserDetailsService userService;
+        AppUserAndUserDetailsService userService;
 //
 ////Mapping of internal JPA model to external REST model
 	public LibAppUserAndUserDetails fromInternal(Appuser u) {
