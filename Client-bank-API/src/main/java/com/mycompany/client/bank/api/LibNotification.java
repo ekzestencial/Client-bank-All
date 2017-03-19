@@ -6,11 +6,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class LibNotification {
 	
-	@XmlElement(required = true)
+	@XmlElement(required = false)
 	public Long notificationId;
 	@XmlElement(required = true)
 	public String text;
-	@XmlElement(required = true)
+	@XmlElement(required = false)
 	public String date;
 	@XmlElement(required = true)
 	public Long userId;
