@@ -57,7 +57,7 @@ public class Transaction implements Serializable {
 		this.transactionId = transactionId;
 	}
 
-	public Transaction(Long transactionId, int value, Date date) {
+	public Transaction(Long transactionId, double value, Date date) {
 		this.transactionId = transactionId;
 		this.value = value;
 		this.date = date;
@@ -75,7 +75,7 @@ public class Transaction implements Serializable {
 		return value;
 	}
 
-	public void setValue(int value) {
+	public void setValue(double value) {
 		this.value = value;
 	}
 
