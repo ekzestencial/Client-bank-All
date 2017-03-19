@@ -1,10 +1,14 @@
 package com.mycompany.client.bank.rest;
 
 import com.mycompany.client.bank.api.AddRequest;
+import com.mycompany.client.bank.api.LibAppUserAndUserDetailsReply;
 import com.mycompany.client.bank.api.LibBankReply;
 import com.mycompany.client.bank.api.LibTransactionReply;
+import com.mycompany.client.bank.jpa.Appuser;
 import com.mycompany.client.bank.jpa.Bank;
 import com.mycompany.client.bank.jpa.Transaction;
+import com.mycompany.client.bank.services.AppUserAndUserDetailsMapper;
+import com.mycompany.client.bank.services.AppUserAndUserDetailsService;
 import com.mycompany.client.bank.services.BankMapper;
 import com.mycompany.client.bank.services.BankService;
 import com.mycompany.client.bank.services.TransactionMapper;
@@ -17,8 +21,21 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 public class UserController {
-	//checkAuthorization()	
-        //RegisrateNewUser()
-        //GetInfoForUserPage()
-        //Notification()
+//	//checkAuthorization()	
+//        //RegisrateNewUser()
+//        //GetInfoForUserPage()
+//        //Notification()
+//	    @Autowired         
+//     AppUserAndUserDetailsService userService;
+//    @Autowired
+//    AppUserAndUserDetailsMapper userMapper;    
+//    
+//    @RequestMapping(path="/users/all",  method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+//    public LibAppUserAndUserDetailsReply getAllUsers(){
+//        LibAppUserAndUserDetailsReply reply = new LibAppUserAndUserDetailsReply();
+//        for(Appuser au: userService.getAllUsers()){
+//           reply.users.add(userMapper.fromInternal(au));    
+//        }
+//        return reply;
+//    }
 }

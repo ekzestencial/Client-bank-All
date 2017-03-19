@@ -9,7 +9,7 @@ import com.mycompany.client.bank.jpa.Appuser;
 import com.mycompany.client.bank.jpa.Role;
 import com.mycompany.client.bank.jpa.Userdetails;
 import com.mycompany.client.bank.repository.UserRepository;
-import com.mycompany.client.bank.services.UserAndUserDetailsService;
+import com.mycompany.client.bank.services.AppUserAndUserDetailsService;
 import com.mycompany.client.bank.utils.EntityIdGenerator;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -33,14 +33,14 @@ import org.springframework.test.context.junit4.SpringRunner;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-public class UserAndUserDetailsServiceTest {
+public class AppUserAndUserDetailsServiceTest {
 
 	@Autowired
-	private UserAndUserDetailsService userService;
+	private AppUserAndUserDetailsService userService;
     
  
 
-	public UserAndUserDetailsServiceTest() {
+	public AppUserAndUserDetailsServiceTest() {
 	}
 
 	@BeforeClass
@@ -87,7 +87,7 @@ public class UserAndUserDetailsServiceTest {
 	public void AddUser() {
 		Long user_id = EntityIdGenerator.random();
 		//new date
-		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		//DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		Date date = new Date();
 		Role role = new Role(0L);
 		Appuser au = new Appuser(user_id);
@@ -95,7 +95,7 @@ public class UserAndUserDetailsServiceTest {
 		//determination of the appuser
 		au.setUsername("test");
 		au.setPassword("fdsfewffds");
-		au.setEmail("test@test.ru");
+		au.setEmail("test@rfd.com");
 		au.setRegDate(date);
 		au.setLastActivity(date);
 		au.setRoleId(role);

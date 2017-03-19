@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
  * @author ekzestencial
  */
 @Service
-public class UserAndUserDetailsService {
+public class AppUserAndUserDetailsService {
 
 	@Autowired
 	UserRepository userRepository;

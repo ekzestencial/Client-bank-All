@@ -15,19 +15,24 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.persistence.CascadeType;
 
 /**
  *
  * @author ekzestencial
  */
 @Entity
-@Table(name = "appuser")
+@Table(catalog = "financial", schema = "", uniqueConstraints = {
+	@UniqueConstraint(columnNames = {"email"})
+	, @UniqueConstraint(columnNames = {"username"})})
 @XmlRootElement
 @NamedQueries({
 	@NamedQuery(name = "Appuser.findAll", query = "SELECT a FROM Appuser a")
@@ -42,43 +47,45 @@ public class Appuser implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@Id
-        @Basic(optional = false)
-        @NotNull
-        @Column(name = "user_id")
+	@Basic(optional = false)
+	@NotNull
+	@Column(name = "user_id", nullable = false)
 	private Long userId;
 	@Basic(optional = false)
-        @NotNull
-        @Size(min = 1, max = 20)
-        @Column(name = "username")
+	@NotNull
+	@Size(min = 1, max = 20)
+	@Column(nullable = false, length = 20)
 	private String username;
 	@Basic(optional = false)
-        @NotNull
-        @Size(min = 1, max = 40)
-        @Column(name = "password")
+	@NotNull
+	@Size(min = 1, max = 40)
+	@Column(nullable = false, length = 40)
 	private String password;
 	// @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
 	@Basic(optional = false)
-        @NotNull
-        @Size(min = 1, max = 40)
-        @Column(name = "email")
+	@NotNull
+	@Size(min = 1, max = 40)
+	@Column(nullable = false, length = 40)
 	private String email;
 	@Basic(optional = false)
-        @NotNull
-        @Column(name = "reg_date")
-        @Temporal(TemporalType.DATE)
+	@NotNull
+	@Column(name = "reg_date", nullable = false)
+	@Temporal(TemporalType.DATE)
 	private Date regDate;
 	@Basic(optional = false)
-        @NotNull
-        @Column(name = "last_activity")
-        @Temporal(TemporalType.TIMESTAMP)
+	@NotNull
+	@Column(name = "last_activity", nullable = false)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date lastActivity;
 	@Basic(optional = false)
-        @NotNull
-        @Column(name = "wallet")
+	@NotNull
+	@Column(nullable = false)
 	private double wallet;
-	@JoinColumn(name = "role_id", referencedColumnName = "role_id")
-        @ManyToOne(optional = false)
+	@JoinColumn(name = "role_id", referencedColumnName = "role_id", nullable = false)
+	@ManyToOne(optional = false)
 	private Role roleId;
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "appuser")
+	private Userdetails userdetails;
 
 	public Appuser() {
 	}
@@ -161,6 +168,14 @@ public class Appuser implements Serializable {
 		this.roleId = roleId;
 	}
 
+	public Userdetails getUserdetails() {
+		return userdetails;
+	}
+
+	public void setUserdetails(Userdetails userdetails) {
+		this.userdetails = userdetails;
+	}
+
 	@Override
 	public int hashCode() {
 		int hash = 0;
@@ -185,5 +200,5 @@ public class Appuser implements Serializable {
 	public String toString() {
 		return "com.mycompany.client.bank.jpa.Appuser[ userId=" + userId + " ]";
 	}
-	
+
 }

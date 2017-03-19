@@ -9,11 +9,11 @@ package com.mycompany.client.bank;
  *
  * @author ekzestencial
  */
-import com.mycompany.client.bank.services.UserAndUserDetailsService;
+import com.mycompany.client.bank.services.AppUserAndUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import com.mycompany.client.bank.services.UserAndUserDetailsService;
+import com.mycompany.client.bank.services.AppUserAndUserDetailsService;
 
 @SpringBootApplication
 public class WebApp {
