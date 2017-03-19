@@ -10,6 +10,7 @@ import com.mycompany.client.bank.jpa.Account;
 import com.mycompany.client.bank.jpa.Transaction;
 import com.mycompany.client.bank.repository.AccountRepository;
 import com.mycompany.client.bank.repository.TransactionRepository;
+import com.mycompany.client.bank.utils.EntityIdGenerator;
 import com.mycompany.client.bank.utils.String_Date_util;
 import java.time.Instant;
 import java.time.temporal.TemporalAccessor;
@@ -40,10 +41,17 @@ public class TransactionMapper {
         return lt;
     }
         public Transaction toInternal(LibTransaction lt) {
+        Long new_Id=null;
         Transaction t = null;
         //first, check if it exists
         if (lt.transactionId != null) {
            t = transactionRepository.findOne(lt.transactionId);
+        }
+        else{
+        new_Id=EntityIdGenerator.random();
+        while(transactionRepository.findOne(new_Id)!=null){
+        new_Id=EntityIdGenerator.random();
+        }
         }
         Account temp_acc=accountRepository.findOne(lt.accountId);
         if(temp_acc==null){
@@ -52,7 +60,7 @@ public class TransactionMapper {
         }
         if (t == null) { //not found, create new
             //logger.debug("Creating new user");
-            t = new Transaction(lt.transactionId, lt.value, String_Date_util.String_to_Date(lt.date));
+            t = new Transaction(new_Id, lt.value, String_Date_util.String_to_Date(lt.date));
         }
         else{
         //logger.debug("Updating existing user");

@@ -29,14 +29,18 @@ public class BankMapper {
         return lb;
     }
         public Bank toInternal(LibBank lb) {
+        Long new_Id=null;
         Bank b = null;
         //first, check if it exists
         if (lb.bank_id != null) {
             b = bankRepository.findOne(lb.bank_id);
         }
+        else{
+        new_Id=Long.valueOf(lb.name.hashCode());
+        }
         if (b == null) { //not found, create new
             //logger.debug("Creating new user");
-            b = new Bank(lb.bank_id, lb.name, lb.depositPersent, lb.creditPersent);
+            b = new Bank(new_Id, lb.name, lb.depositPersent, lb.creditPersent);
         }
         else{
         //logger.debug("Updating existing user");
