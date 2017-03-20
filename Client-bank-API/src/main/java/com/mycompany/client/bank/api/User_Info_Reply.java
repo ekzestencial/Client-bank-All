@@ -15,7 +15,11 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author artem
  */
 @XmlRootElement
-public class LibTransactionReply extends GenericReply{
-      @XmlElement(required=true)
-    public List<LibTransaction> transaction = new ArrayList<>();
+public class User_Info_Reply {
+    @XmlElement(required = true)
+    public String UserName;
+    @XmlElement(required = true)
+    public List<LibAccount> account_list= new ArrayList<>();
+    @XmlElement(required = true)
+    public Integer notif_size;
 }

@@ -5,7 +5,7 @@
  */
 package com.mycompany.client.bank.rest;
 
-import com.mycompany.client.bank.api.AddRequest;
+import com.mycompany.client.bank.api.PostRequest;
 import com.mycompany.client.bank.api.LibBankReply;
 import com.mycompany.client.bank.api.LibTransactionReply;
 import com.mycompany.client.bank.jpa.Bank;
@@ -40,7 +40,7 @@ public class TestController {
         //GetInfoForUserPage()
         //Notification()
     @RequestMapping(path="/transactions/add",  method=RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public LibTransactionReply AddTransaction(@RequestBody AddRequest req){
+    public LibTransactionReply AddTransaction(@RequestBody PostRequest req){
         LibTransactionReply reply = new LibTransactionReply();
            try{
            Transaction tr;
@@ -54,7 +54,7 @@ public class TestController {
         return reply;
     }
     @RequestMapping(path="/banks/add",  method=RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public LibBankReply AddBank(@RequestBody AddRequest req){
+    public LibBankReply AddBank(@RequestBody PostRequest req){
         LibBankReply reply = new LibBankReply();
            try{
            Bank bank;

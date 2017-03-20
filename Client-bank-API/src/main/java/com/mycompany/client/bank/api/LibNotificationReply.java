@@ -15,7 +15,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author artem
  */
 @XmlRootElement
-public class LibTransactionReply extends GenericReply{
-      @XmlElement(required=true)
-    public List<LibTransaction> transaction = new ArrayList<>();
+public class LibNotificationReply {
+    @XmlElement(required=true)
+    public List<LibNotification> notifications = new ArrayList<>();
 }
