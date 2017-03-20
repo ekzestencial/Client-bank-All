@@ -1,7 +1,9 @@
 package com.mycompany.client.bank.rest;
 
 import com.mycompany.client.bank.api.LibAppUserAndUserDetailsReply;
+import com.mycompany.client.bank.api.PostRequstLibAuthorization;
 import com.mycompany.client.bank.api.LibNotificationReply;
+import com.mycompany.client.bank.api.PostRequest;
 import com.mycompany.client.bank.api.User_Info_Reply;
 import com.mycompany.client.bank.jpa.Account;
 import com.mycompany.client.bank.jpa.Appuser;
@@ -69,6 +71,20 @@ public class UserController {
         }
         reply.notif_size=notifService.getAllUserNotifications(userService.getUserByName(username)).size();
         reply.wallet=userService.getUserByName(username).getWallet();
+        return reply;
+    }
+    // check_user method. If user exists return  LibAppUserAndUserDetailsReply
+        @RequestMapping(path="/users/check_user",  method=RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	    public LibAppUserAndUserDetailsReply check_user(@RequestBody PostRequstLibAuthorization req){
+        LibAppUserAndUserDetailsReply reply = new LibAppUserAndUserDetailsReply();
+        try{
+           Appuser au;
+           au = userService.getUserByUsernameAndPassword(userMapper.toInternal(req).getUsername(),userMapper.toInternal(req).getPassword());
+	   reply.users.add(userMapper.fromInternal(au));
+        }catch(Exception e){
+            reply.retcode = -1;
+            reply.error_message = e.getMessage();
+        }
         return reply;
     }
 }

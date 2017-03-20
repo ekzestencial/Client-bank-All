@@ -7,7 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.mycompany.client.bank.api.LibNotification;
 import com.mycompany.client.bank.jpa.Notification;
 import com.mycompany.client.bank.repository.UserRepository;
-
+import org.springframework.stereotype.Component;
+@Component
 public class NotificationMapper {
 	
 	@Autowired

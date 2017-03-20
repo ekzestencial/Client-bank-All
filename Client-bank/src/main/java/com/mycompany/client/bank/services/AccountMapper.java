@@ -9,7 +9,8 @@ import com.mycompany.client.bank.jpa.Account;
 import com.mycompany.client.bank.repository.AccountRepository;
 import com.mycompany.client.bank.repository.BankRepository;
 import com.mycompany.client.bank.repository.UserRepository;
-
+import org.springframework.stereotype.Component;
+@Component
 public class AccountMapper {
 	
 	@Autowired

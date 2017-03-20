@@ -6,6 +6,7 @@
 package com.mycompany.client.bank.services;
 
 import com.mycompany.client.bank.api.LibAppUserAndUserDetails;
+import com.mycompany.client.bank.api.PostRequstLibAuthorization;
 import com.mycompany.client.bank.jpa.Appuser;
 import com.mycompany.client.bank.jpa.Userdetails;
 import com.mycompany.client.bank.repository.UserRepository;
@@ -64,7 +65,7 @@ public class AppUserAndUserDetailsMapper {
 	////Mapping of external REST model to internal Appuser;
 	//
 
-	public Appuser toInernal(LibAppUserAndUserDetails lu) {
+	public Appuser toInternal(LibAppUserAndUserDetails lu) {
 		Appuser au = null;
 
 //check user existence
@@ -81,6 +82,13 @@ public class AppUserAndUserDetailsMapper {
 		ud.setPhone(lu.phone);
 		ud.setAdress(lu.phone);
 		au.setEmail(lu.email);
+		return au;
+	}
+//method Overloading "toInternal" for the LibAuthorizaiton.class;
+	public Appuser toInternal(PostRequstLibAuthorization la) {
+		Appuser au = null;
+		au=userRepository.findUserByUsernameAndPassword(la.login, la.password);
+
 		return au;
 	}
 }

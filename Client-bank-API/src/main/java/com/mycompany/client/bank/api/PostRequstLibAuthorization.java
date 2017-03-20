@@ -10,15 +10,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author artem
+ * @author ekzestencial
  */
 @XmlRootElement
-public class PostRequest {
-    @XmlElement(required=false)
-    public LibTransaction transaction;
-    @XmlElement(required=false)
-    public LibBank bank;
-        @XmlElement(required=false)
-    public LibAppUserAndUserDetails user;
-    
+public class PostRequstLibAuthorization {
+	@XmlElement(required = false)
+	public String login;
+        @XmlElement(required = false)
+	public String password;	
+	
 }
