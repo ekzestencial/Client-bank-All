@@ -21,5 +21,7 @@ public class User_Info_Reply {
     @XmlElement(required = true)
     public List<LibAccount> account_list= new ArrayList<>();
     @XmlElement(required = true)
+    public Double wallet;
+    @XmlElement(required = true)
     public Integer notif_size;
 }

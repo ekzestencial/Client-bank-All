@@ -9,7 +9,7 @@ public class LibAccount {
 	@XmlElement(required = false)
 	public Long accountId;
 	@XmlElement(required = true)
-	public double value;
+	public Double value;
 	@XmlElement(required = true)
 	public String openDate;
 	@XmlElement(required = true)

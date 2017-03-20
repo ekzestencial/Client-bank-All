@@ -29,7 +29,7 @@ public class LibAppUserAndUserDetails {
 	@XmlElement(required = true)
 	public String phone;
         @XmlElement(required = true)
-	public double wallet;	
+	public Double wallet;	
         @XmlElement(required = true)
 	public Long role_id;	
 
