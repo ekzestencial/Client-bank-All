@@ -87,4 +87,17 @@ public class UserController {
         }
         return reply;
     }
+	        @RequestMapping(path="/users/add",  method=RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public LibAppUserAndUserDetailsReply addUser( @RequestBody PostRequest req){
+        LibAppUserAndUserDetailsReply rep = new LibAppUserAndUserDetailsReply();
+        try{
+           Appuser au;
+           au = userService.addUser(userMapper.toInternal(req.user));
+           rep.users.add(userMapper.fromInternal(au));
+        }catch(Exception e){
+            rep.retcode = -1;
+            rep.error_message = e.getMessage();
+        }
+        return rep;
+    }
 }
