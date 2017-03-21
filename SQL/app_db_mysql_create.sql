@@ -11,6 +11,7 @@ CREATE TABLE appuser (
 	reg_date DATE NOT NULL,
 	last_activity DATETIME NOT NULL,
 	role_id BIGINT NOT NULL,
+  wallet Double(16,2) NOT NULL
 	PRIMARY KEY (user_id),
 	FOREIGN KEY (role_id) REFERENCES role(role_id)
 );
