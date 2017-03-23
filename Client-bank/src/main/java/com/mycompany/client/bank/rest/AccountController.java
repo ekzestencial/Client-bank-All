@@ -80,7 +80,7 @@ public class AccountController {
 	}
 	
 	@RequestMapping(path="/{accountId}/transaction", method=RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public LibTransactionReply changeWallet(@RequestBody PostRequest req, @RequestBody String accountId) {
+	public LibTransactionReply changeWallet(@RequestBody PostRequest req, @PathVariable String accountId) {
 		LibTransactionReply reply = new LibTransactionReply();
 		LibTransaction tr = req.transaction;
 		Long accId = Long.valueOf(accountId);
@@ -103,6 +103,39 @@ public class AccountController {
 		transService.addTransaction(transMapper.toInternal(tr));
 		
 		reply.account = accMapper.fromInternal(acc);
+		transService.getByAccountId(accId).forEach(t -> reply.transaction.add(transMapper.fromInternal(t)));
+		
+		return reply;
+	}
+	
+	@RequestMapping(path="/{accountId}/transfer", method=RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public LibTransactionReply transfer(@RequestBody PostRequest req, @PathVariable String accountId) {
+		LibTransactionReply reply = new LibTransactionReply();
+		
+		LibTransaction transTo = req.transaction;
+		Long accId = Long.valueOf(accountId);
+		Account accFrom = accService.getAccount(accId);
+		
+		if(accFrom.getValue() - transTo.value < -4000.0) {
+			reply.error_message = "Превышен кредитный лимит! Введите другую сумму для перевода";
+			return reply;
+		}
+		Account accTo = accService.getAccount(transTo.accountId);
+		
+		accFrom.setValue(accFrom.getValue() - transTo.value);
+		accTo.setValue(accTo.getValue() + transTo.value);
+		
+		accService.addAccount(accFrom);
+		accService.addAccount(accTo);
+		
+		LibTransaction transFrom = new LibTransaction();
+		transFrom.accountId = accId;
+		transFrom.value = -transTo.value;
+		
+		transService.addTransaction(transMapper.toInternal(transFrom));
+		transService.addTransaction(transMapper.toInternal(transTo));
+		
+		reply.account = accMapper.fromInternal(accFrom);
 		transService.getByAccountId(accId).forEach(t -> reply.transaction.add(transMapper.fromInternal(t)));
 		
 		return reply;
