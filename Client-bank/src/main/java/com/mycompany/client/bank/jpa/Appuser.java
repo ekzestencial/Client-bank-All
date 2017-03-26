@@ -59,7 +59,7 @@ public class Appuser implements Serializable {
 	@Basic(optional = false)
 	@NotNull
 	@Size(min = 1, max = 40)
-	@Column(nullable = false, length = 40)
+	@Column(nullable = false)
 	private String password;
 	// @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
 	@Basic(optional = false)

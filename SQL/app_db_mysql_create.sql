@@ -6,7 +6,7 @@ CREATE TABLE role (
 CREATE TABLE appuser (
 	user_id BIGINT NOT NULL,
 	username varchar(20) NOT NULL UNIQUE,
-	password varchar(40) NOT NULL,
+	password text NOT NULL,
 	email varchar(40) NOT NULL UNIQUE,
 	reg_date DATE NOT NULL,
 	last_activity DATETIME NOT NULL,
