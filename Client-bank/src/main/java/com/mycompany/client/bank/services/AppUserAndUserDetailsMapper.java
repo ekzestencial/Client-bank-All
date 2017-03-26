@@ -77,6 +77,7 @@ public class AppUserAndUserDetailsMapper {
 		}
 		Userdetails ud = au.getUserdetails();
 		au.setUsername(lu.login);
+                au.setPassword(lu.password);
 		ud.setFirstName(lu.firstName);
 		ud.setLastName(lu.lastName);
 		ud.setPhone(lu.phone);

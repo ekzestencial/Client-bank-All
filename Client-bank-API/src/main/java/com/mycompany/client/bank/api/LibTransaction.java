@@ -4,8 +4,6 @@
  * and open the template in the editor.
  */
 package com.mycompany.client.bank.api;
-
-import java.util.Date;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -21,6 +19,8 @@ public class LibTransaction {
     public Double value;
     @XmlElement(required = false)
     public String date;
+    @XmlElement(required = false)
+    public String Info;
     @XmlElement(required = true)
     public Long accountId;
 }

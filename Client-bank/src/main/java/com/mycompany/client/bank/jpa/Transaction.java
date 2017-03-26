@@ -46,6 +46,9 @@ public class Transaction implements Serializable {
         @Column(name = "date")
         @Temporal(TemporalType.TIMESTAMP)
 	private Date date;
+        @Basic(optional = false)
+        @Column(name = "info")
+        private String info;
 	@JoinColumn(name = "account_id", referencedColumnName = "account_id")
         @ManyToOne(optional = false)
 	private Account accountId;
@@ -57,10 +60,11 @@ public class Transaction implements Serializable {
 		this.transactionId = transactionId;
 	}
 
-	public Transaction(Long transactionId, double value, Date date) {
+	public Transaction(Long transactionId, double value, Date date, String info) {
 		this.transactionId = transactionId;
 		this.value = value;
 		this.date = date;
+                this.info=info;
 	}
 
 	public Long getTransactionId() {
@@ -94,7 +98,15 @@ public class Transaction implements Serializable {
 	public void setAccountId(Account accaountId) {
 		this.accountId = accaountId;
 	}
+        
+        public String getTransactionInfo() {
+		return info;
+	}
 
+	public void setTransactionInfo(String transactionInf) {
+		this.info = transactionInf;
+	}
+        
 	@Override
 	public int hashCode() {
 		int hash = 0;

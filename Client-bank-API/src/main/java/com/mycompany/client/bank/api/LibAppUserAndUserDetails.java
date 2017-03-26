@@ -14,10 +14,12 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement
 public class LibAppUserAndUserDetails {
-	@XmlElement(required =false) 
+	@XmlElement(required = false) 
 	public Long user_id;
 	@XmlElement(required = true)
 	public String login;
+        @XmlElement(required = false)
+        public String password;
 	@XmlElement(required = true)
 	public String firstName;
 	@XmlElement(required = true)

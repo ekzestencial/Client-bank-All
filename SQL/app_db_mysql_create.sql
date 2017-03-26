@@ -51,6 +51,7 @@ CREATE TABLE transaction (
 	account_id BIGINT NOT NULL,
 	value DOUBLE(16,2) NOT NULL,
 	date DATETIME NOT NULL,
+        info TEXT NOT NULL,
 	PRIMARY KEY (transaction_id),
 	FOREIGN KEY (account_id) REFERENCES account(account_id)
 );

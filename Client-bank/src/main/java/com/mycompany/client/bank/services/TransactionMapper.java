@@ -37,6 +37,7 @@ public class TransactionMapper {
             lt.date=t.getDate().toString();
             lt.value=t.getValue();
             lt.accountId=t.getAccountId().getAccountId();
+            lt.Info=t.getTransactionInfo();
         }
         return lt;
     }
@@ -58,13 +59,14 @@ public class TransactionMapper {
         }
         if (t == null) { //not found, create new
             //logger.debug("Creating new user");
-            t = new Transaction(new_Id, lt.value, new Date(System.nanoTime()));
+            t = new Transaction(new_Id, lt.value, new Date(System.nanoTime()), lt.Info);
         }
         else{
         //logger.debug("Updating existing user");
         t.setTransactionId(lt.transactionId);
         t.setValue(lt.value);
         t.setDate(String_Date_util.String_to_Date(lt.date));
+        t.setTransactionInfo(lt.Info);
         }
         t.setAccountId(temp_acc);
         return t;
