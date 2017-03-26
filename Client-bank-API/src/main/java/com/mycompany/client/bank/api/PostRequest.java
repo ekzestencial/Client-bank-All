@@ -18,7 +18,7 @@ public class PostRequest {
     public LibTransaction transaction;
     @XmlElement(required=false)
     public LibBank bank;
-        @XmlElement(required=false)
+    @XmlElement(required=false)
     public LibAppUserAndUserDetails user;
     
 }

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.mycompany.client.bank.api.LibNotification;
 import com.mycompany.client.bank.jpa.Notification;
 import com.mycompany.client.bank.repository.UserRepository;
+import java.time.Instant;
 import org.springframework.stereotype.Component;
 @Component
 public class NotificationMapper {
@@ -28,7 +29,7 @@ public class NotificationMapper {
 	}
 	
 	public Notification toInternal(LibNotification lb) {
-		Date current = new Date(System.nanoTime());
+		Date current = Date.from(Instant.now());
 		int id = 17;
 		id = 37 * id + current.hashCode();
 		id = 37 * id + lb.userId.hashCode();

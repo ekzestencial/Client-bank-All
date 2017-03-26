@@ -59,7 +59,7 @@ public class TransactionMapper {
         }
         if (t == null) { //not found, create new
             //logger.debug("Creating new user");
-            t = new Transaction(new_Id, lt.value, new Date(System.nanoTime()), lt.Info);
+            t = new Transaction(new_Id, lt.value, Date.from(Instant.now()), lt.Info);
         }
         else{
         //logger.debug("Updating existing user");

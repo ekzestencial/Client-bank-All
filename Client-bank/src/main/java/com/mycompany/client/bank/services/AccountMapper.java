@@ -9,6 +9,7 @@ import com.mycompany.client.bank.jpa.Account;
 import com.mycompany.client.bank.repository.AccountRepository;
 import com.mycompany.client.bank.repository.BankRepository;
 import com.mycompany.client.bank.repository.UserRepository;
+import java.time.Instant;
 import org.springframework.stereotype.Component;
 @Component
 public class AccountMapper {
@@ -41,7 +42,7 @@ public class AccountMapper {
 			acc = accRepo.findOne(la.accountId);
 			acc.setValue(la.value);
 		} else {
-			acc = new Account(Long.valueOf(la.hashCode()), la.value, new Date(System.nanoTime()));
+			acc = new Account(Long.valueOf(la.hashCode()), la.value, Date.from(Instant.now()));
 			acc.setBankId(bankRepo.findOne(la.bankId));
 			acc.setUserId(userRepo.findOne(la.userId));
 		}
