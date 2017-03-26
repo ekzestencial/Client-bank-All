@@ -6,12 +6,12 @@ CREATE TABLE role (
 CREATE TABLE appuser (
 	user_id BIGINT NOT NULL,
 	username varchar(20) NOT NULL UNIQUE,
-	password varchar(40) NOT NULL,
+	password TEXT NOT NULL,
 	email varchar(40) NOT NULL UNIQUE,
 	reg_date DATE NOT NULL,
 	last_activity DATETIME NOT NULL,
 	role_id BIGINT NOT NULL,
-  wallet Double(16,2) NOT NULL
+        wallet Double(16,2) NOT NULL
 	PRIMARY KEY (user_id),
 	FOREIGN KEY (role_id) REFERENCES role(role_id)
 );
