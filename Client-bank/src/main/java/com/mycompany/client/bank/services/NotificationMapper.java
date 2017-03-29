@@ -24,6 +24,7 @@ public class NotificationMapper {
 			ln.text = n.getText();
 			ln.date = String.valueOf(n.getDate());
 			ln.userId = n.getUserId().getUserId();
+                        ln.isChecked=n.getChecked();
 		}
 		return ln;
 	}
@@ -34,7 +35,7 @@ public class NotificationMapper {
 		id = 37 * id + current.hashCode();
 		id = 37 * id + lb.userId.hashCode();
 		
-		Notification n = new Notification(Long.valueOf(id), lb.text, current);
+		Notification n = new Notification(Long.valueOf(id), lb.text, current, lb.isChecked);
 		n.setUserId(userRepo.findOne(lb.userId));
 		
 		return n;

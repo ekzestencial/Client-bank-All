@@ -11,7 +11,7 @@ CREATE TABLE appuser (
 	reg_date DATE NOT NULL,
 	last_activity DATETIME NOT NULL,
 	role_id BIGINT NOT NULL,
-        wallet Double(16,2) NOT NULL
+        wallet Double(16,2) NOT NULL,
 	PRIMARY KEY (user_id),
 	FOREIGN KEY (role_id) REFERENCES role(role_id)
 );
@@ -41,6 +41,7 @@ CREATE TABLE account (
 	bank_id BIGINT NOT NULL,
 	value DOUBLE(16,2) NOT NULL,
 	open_date DATE NOT NULL,
+        credit_limit BIGINT,
 	PRIMARY KEY (account_id),
 	FOREIGN KEY (user_id) REFERENCES appuser(user_id),
 	FOREIGN KEY (bank_id) REFERENCES bank(bank_id)
@@ -61,6 +62,7 @@ CREATE TABLE notification (
 	user_id BIGINT NOT NULL,
 	text TEXT NOT NULL,
 	date DATETIME NOT NULL,
+        isChecked bool NOT NULL,
 	PRIMARY KEY (notification_id),
 	FOREIGN KEY (user_id) REFERENCES appuser(user_id)
 );

@@ -46,6 +46,9 @@ public class Account implements Serializable {
 	@Basic(optional = false)
         @Column(name = "value")
 	private double value;
+        @Basic(optional = false)
+        @Column(name = "credit_limit")
+        private Long credit_limit;
 	@Basic(optional = false)
         @Column(name = "open_date")
         @Temporal(TemporalType.DATE)
@@ -103,7 +106,7 @@ public class Account implements Serializable {
 	public void setUserId(Appuser userId) {
 		this.userId = userId;
 	}
-
+        
 	public Bank getBankId() {
 		return bankId;
 	}
@@ -111,7 +114,12 @@ public class Account implements Serializable {
 	public void setBankId(Bank bankId) {
 		this.bankId = bankId;
 	}
-
+        public void setCreditLimit(Long limit){
+        this.credit_limit=limit;
+        }
+        public Long getCreditLimit(){
+        return this.credit_limit;
+        }
 	@XmlTransient
 	public Collection<Transaction> getTransactionCollection() {
 		return transactionCollection;

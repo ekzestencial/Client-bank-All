@@ -47,10 +47,13 @@ public class Notification implements Serializable {
         @Column(name = "date")
         @Temporal(TemporalType.TIMESTAMP)
 	private Date date;
+        @Basic(optional = false)
+        @Column(name="isChecked")
+        private boolean isChecked;
 	@JoinColumn(name = "user_id", referencedColumnName = "user_id")
         @ManyToOne(optional = false)
 	private Appuser userId;
-
+        
 	public Notification() {
 	}
 
@@ -58,10 +61,11 @@ public class Notification implements Serializable {
 		this.notificationId = notificationId;
 	}
 
-	public Notification(Long notificationId, String text, Date date) {
+	public Notification(Long notificationId, String text, Date date, boolean isChecked) {
 		this.notificationId = notificationId;
 		this.text = text;
 		this.date = date;
+                this.isChecked=isChecked;
 	}
 
 	public Long getNotificationId() {
@@ -94,6 +98,13 @@ public class Notification implements Serializable {
 
 	public void setUserId(Appuser userId) {
 		this.userId = userId;
+	}
+        public boolean getChecked() {
+		return isChecked;
+	}
+
+	public void setChecked(boolean checked) {
+		this.isChecked = checked;
 	}
 
 	@Override

@@ -10,8 +10,10 @@ public class LibAccount {
 	public Long accountId;
 	@XmlElement(required = true)
 	public Double value;
-	@XmlElement(required = true)
+	@XmlElement(required = false)
 	public String openDate;
+        @XmlElement(required = false)
+        public Long credit_limit;
 	@XmlElement(required = true)
 	public Long userId;
 	@XmlElement(required = true)

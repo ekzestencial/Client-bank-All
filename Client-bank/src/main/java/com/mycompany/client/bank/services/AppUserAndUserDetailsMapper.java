@@ -41,6 +41,7 @@ public class AppUserAndUserDetailsMapper {
 		}
 		Userdetails ud = u.getUserdetails();
 		lu.login = u.getUsername();
+                lu.password = u.getPassword();
 		lu.user_id = u.getUserId();
 		lu.wallet = u.getWallet();
                 lu.email=u.getEmail();

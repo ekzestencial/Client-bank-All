@@ -31,6 +31,7 @@ public class AccountMapper {
 			la.openDate = acc.getOpenDate().toString();
 			la.bankId = acc.getBankId().getBankId();
 			la.userId = acc.getUserId().getUserId();
+                        la.credit_limit=acc.getCreditLimit();
 		}
 		return la;
 	}
@@ -41,6 +42,8 @@ public class AccountMapper {
 		if(la.accountId != null) {
 			acc = accRepo.findOne(la.accountId);
 			acc.setValue(la.value);
+                        if(la.credit_limit!=null)acc.setCreditLimit(la.credit_limit);
+                        else acc.setCreditLimit(0L);
 		} else {
 			acc = new Account(Long.valueOf(la.hashCode()), la.value, Date.from(Instant.now()));
 			acc.setBankId(bankRepo.findOne(la.bankId));

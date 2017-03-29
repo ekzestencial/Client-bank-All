@@ -20,19 +20,19 @@ public class LibAppUserAndUserDetails {
 	public String login;
         @XmlElement(required = false)
         public String password;
-	@XmlElement(required = true)
+	@XmlElement(required = false)
 	public String firstName;
-	@XmlElement(required = true)
+	@XmlElement(required = false)
 	public String lastName;
-	@XmlElement(required = true)
+	@XmlElement(required = false)
 	public String email;
-	@XmlElement(required = true)
+	@XmlElement(required = false)
 	public String adress;
-	@XmlElement(required = true)
+	@XmlElement(required = false)
 	public String phone;
-        @XmlElement(required = true)
+        @XmlElement(required = false)
 	public Double wallet;	
-        @XmlElement(required = true)
+        @XmlElement(required = false)
 	public Long role_id;	
 
 

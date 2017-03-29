@@ -46,6 +46,7 @@ public class TransactionServiceTest {
          tr.setAccountId(new Account(1L));
          tr.setValue(2000);
          tr.setDate(Date.from(Instant.parse("2016-12-03T15:15:30.00Z")));
+         tr.setTransactionInfo("Bla Bla");
          transactionService.addTransaction(tr);
          tr=transactionService.findByTransactionId(tr_id);
          assertNotNull("New Transaction not found", tr);

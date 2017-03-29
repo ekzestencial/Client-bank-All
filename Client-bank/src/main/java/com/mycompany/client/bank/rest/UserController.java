@@ -8,12 +8,16 @@ import com.mycompany.client.bank.api.User_Info_Reply;
 import com.mycompany.client.bank.jpa.Account;
 import com.mycompany.client.bank.jpa.Appuser;
 import com.mycompany.client.bank.jpa.Notification;
+import com.mycompany.client.bank.jpa.Userdetails;
 import com.mycompany.client.bank.services.AccountMapper;
 import com.mycompany.client.bank.services.AccountService;
 import com.mycompany.client.bank.services.AppUserAndUserDetailsMapper;
 import com.mycompany.client.bank.services.AppUserAndUserDetailsService;
 import com.mycompany.client.bank.services.NotificationMapper;
 import com.mycompany.client.bank.services.NotificationService;
+import java.time.Instant;
+import java.util.Date;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -52,6 +56,7 @@ public class UserController {
         reply.users.add(userMapper.fromInternal(userService.getUserByUsernameAndPassword(username, password)));
         return reply;
     }
+    @CrossOrigin(origins = "*")
     @RequestMapping(path="/{username}/notifications",  method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public LibNotificationReply getNotifications(@PathVariable String username){
          LibNotificationReply reply = new LibNotificationReply();
@@ -62,24 +67,29 @@ public class UserController {
         }
         return reply;
     }
-     @RequestMapping(path="/{username}/info",  method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+     @CrossOrigin(origins = "*")
+     @RequestMapping(path="/users/{username}/sliderInfo",  method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public User_Info_Reply getAppInfoByUserName(@PathVariable String username){
         User_Info_Reply reply=new User_Info_Reply();
-        reply.UserName=username;
-        for(Account user_acc : accountService.getUserAccounts(userService.getUserByName(username))){
-        reply.account_list.add(accountMapper.fromInternal(user_acc));
+        Userdetails temp = userService.getUserByName(username).getUserdetails();
+        userService.getUserByName(username).setLastActivity(Date.from(Instant.now()));
+        List<Notification> lst=notifService.getAllUserNotifications(userService.getUserByName(username));
+        for(Notification notif : lst){
+        if(notif.getChecked())lst.remove(notif);
         }
-        reply.notif_size=notifService.getAllUserNotifications(userService.getUserByName(username)).size();
+        reply.notif_size=lst.size();
         reply.wallet=userService.getUserByName(username).getWallet();
+        reply.currentTime=Date.from(Instant.now()).toString();
         return reply;
     }
     // check_user method. If user exists return  LibAppUserAndUserDetailsReply
+        @CrossOrigin(origins = "*")
         @RequestMapping(path="/users/check_user",  method=RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	    public LibAppUserAndUserDetailsReply check_user(@RequestBody PostRequstLibAuthorization req){
+	    public LibAppUserAndUserDetailsReply check_user(@RequestBody PostRequest req){
         LibAppUserAndUserDetailsReply reply = new LibAppUserAndUserDetailsReply();
         try{
            Appuser au;
-           au = userService.getUserByUsernameAndPassword(userMapper.toInternal(req).getUsername(),userMapper.toInternal(req).getPassword());
+           au = userService.getUserByUsernameAndPassword(req.user.login, req.user.password);
 	   reply.users.add(userMapper.fromInternal(au));
         }catch(Exception e){
             reply.retcode = -1;
@@ -93,6 +103,7 @@ public class UserController {
         LibAppUserAndUserDetailsReply rep = new LibAppUserAndUserDetailsReply();
         try{
            Appuser au;
+           if(userService.getUserById(req.user.user_id)!=null) throw new Exception("This user already exist in database!");
            au = userService.addUser(userMapper.toInternal(req.user));
            rep.users.add(userMapper.fromInternal(au));
         }catch(Exception e){
