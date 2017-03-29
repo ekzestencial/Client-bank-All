@@ -97,6 +97,12 @@ public class UserController {
         }
         return reply;
     }
+	        @RequestMapping(path="/users/byid/{userid}",  method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public LibAppUserAndUserDetailsReply getUserById(@PathVariable Long userid){
+        LibAppUserAndUserDetailsReply reply = new LibAppUserAndUserDetailsReply();
+        reply.users.add(userMapper.fromInternal(userService.getUserById(userid)));
+        return reply;
+    }
                 @CrossOrigin(origins = "*")
 	        @RequestMapping(path="/users/add",  method=RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public LibAppUserAndUserDetailsReply addUser( @RequestBody PostRequest req){

@@ -9,9 +9,15 @@ import com.mycompany.client.bank.jpa.Appuser;
 import com.mycompany.client.bank.jpa.Userdetails;
 import com.mycompany.client.bank.repository.UserDetailsRepository;
 import com.mycompany.client.bank.repository.UserRepository;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.codec.Hex;
 import org.springframework.stereotype.Service;
 
 /**
@@ -20,6 +26,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class AppUserAndUserDetailsService {
+	private static final Logger logger = LoggerFactory.getLogger(AppUserAndUserDetailsService.class);
 
 	@Autowired
 	UserRepository userRepository;
@@ -64,4 +71,35 @@ public class AppUserAndUserDetailsService {
 	public Appuser getUserByUsernameAndPassword(String username, String password){
 	return userRepository.findUserByUsernameAndPassword(username, password);	
 	} 
+	    public Appuser updateUser(Appuser appuser) {
+        appuser = userRepository.save(appuser);
+        return appuser;
+    }   
+
+    public Appuser authUser(String login, String password) {
+        Appuser appuser = userRepository.findUserByUsername(login);
+        if (appuser != null) {
+            if( ! appuser.getPassword().equalsIgnoreCase(digest(password))){
+                appuser = null;
+                logger.debug("Invalid password");
+            }
+            logger.debug("Login ok");
+        }else{
+            logger.debug("User not found");    
+        }
+        return appuser;
+    }   
+
+    public static String digest(String original) {
+        String res = ""; 
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            md.update(original.getBytes());
+            byte[] digest = md.digest();
+            res = new String(Hex.encode(digest));
+        } catch (NoSuchAlgorithmException ex) {
+           logger.error("Can not create SHA-256 digester");
+        }
+        return res;
+    }
 }

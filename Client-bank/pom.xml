@@ -46,6 +46,12 @@
             <artifactId>httpclient</artifactId>
             <version>4.5.1</version>
         </dependency>             
+	        <dependency>
+            <groupId>com.hazelcast</groupId>
+            <artifactId>hazelcast</artifactId>
+            <version>3.7.6</version>
+	            <type>jar</type>
+	        </dependency> 
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-openid</artifactId>
