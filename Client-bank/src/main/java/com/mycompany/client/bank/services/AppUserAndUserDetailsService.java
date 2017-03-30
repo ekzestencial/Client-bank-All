@@ -79,7 +79,7 @@ public class AppUserAndUserDetailsService {
     public Appuser authUser(String login, String password) {
         Appuser appuser = userRepository.findUserByUsername(login);
         if (appuser != null) {
-            if( ! appuser.getPassword().equalsIgnoreCase(digest(password))){
+            if( ! appuser.getPassword().equalsIgnoreCase(password)){
                 appuser = null;
                 logger.debug("Invalid password");
             }

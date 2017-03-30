@@ -22,4 +22,6 @@ public class User_Info_Reply {
     public Integer notif_size;
     @XmlElement (required = true)
     public String currentTime;
+    @XmlElement (required = true)
+    public String FullName;
 }

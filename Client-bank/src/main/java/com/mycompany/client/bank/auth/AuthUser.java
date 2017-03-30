@@ -45,32 +45,32 @@ public class AuthUser implements UserDetails{
 
 	@Override
 	public String getPassword() {
-		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+		return user.getPassword();
 	}
 
 	@Override
 	public String getUsername() {
-		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+		return user.getUsername();
 	}
 
 	@Override
 	public boolean isAccountNonExpired() {
-		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+		return true;
 	}
 
 	@Override
 	public boolean isAccountNonLocked() {
-		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+		return true;
 	}
 
 	@Override
 	public boolean isCredentialsNonExpired() {
-		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+		return true;
 	}
 
 	@Override
 	public boolean isEnabled() {
-		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+		return true;
 	}
         }
 

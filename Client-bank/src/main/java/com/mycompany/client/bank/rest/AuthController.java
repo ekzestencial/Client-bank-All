@@ -11,6 +11,7 @@ package com.mycompany.client.bank.rest;
  */
 
 import com.mycompany.client.bank.api.LoginReply;
+import com.mycompany.client.bank.api.PostRequest;
 import com.mycompany.client.bank.api.PostRequstLibAuthorization;
 import com.mycompany.client.bank.auth.AuthUser;
 import com.mycompany.client.bank.auth.TokenProvider;
@@ -21,6 +22,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -39,14 +41,14 @@ private static final Logger logger =  LoggerFactory.getLogger(AuthController.cla
     AppUserAndUserDetailsMapper userMapper;    
     @Autowired
     TokenProvider tokenProvider;
-
+    
     @RequestMapping(path="/auth",  method=RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public LoginReply authUser( @RequestBody PostRequstLibAuthorization req){
         LoginReply rep = new LoginReply();
            Appuser au; 
            au = userService.authUser(req.login,req.password);
            if(au!=null){
-              String token = tokenProvider.newToken();
+              String token = tokenProvider.newToken(au);
               tokenProvider.put(token, new AuthUser(au));
               rep.user = userMapper.fromInternal(au);
               rep.token = token;
@@ -54,6 +56,6 @@ private static final Logger logger =  LoggerFactory.getLogger(AuthController.cla
               logger.error("Error loggin in user. User: "+req.login);
            }
         return rep;
-    }   
-
+    }
+    
 }

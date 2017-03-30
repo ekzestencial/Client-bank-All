@@ -56,7 +56,7 @@ public class UserController {
         reply.users.add(userMapper.fromInternal(userService.getUserByUsernameAndPassword(username, password)));
         return reply;
     }
-    @CrossOrigin(origins = "*")
+    
     @RequestMapping(path="/{username}/notifications",  method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public LibNotificationReply getNotifications(@PathVariable String username){
          LibNotificationReply reply = new LibNotificationReply();
@@ -67,11 +67,10 @@ public class UserController {
         }
         return reply;
     }
-     @CrossOrigin(origins = "*")
+  
      @RequestMapping(path="/users/{username}/sliderInfo",  method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public User_Info_Reply getAppInfoByUserName(@PathVariable String username){
         User_Info_Reply reply=new User_Info_Reply();
-        Userdetails temp = userService.getUserByName(username).getUserdetails();
         userService.getUserByName(username).setLastActivity(Date.from(Instant.now()));
         List<Notification> lst=notifService.getAllUserNotifications(userService.getUserByName(username));
         for(Notification notif : lst){
@@ -80,10 +79,11 @@ public class UserController {
         reply.notif_size=lst.size();
         reply.wallet=userService.getUserByName(username).getWallet();
         reply.currentTime=Date.from(Instant.now()).toString();
+        Userdetails ud=userService.getUserByName(username).getUserdetails();
+        reply.FullName=ud.getFirstName() + " " + ud.getLastName();
         return reply;
     }
     // check_user method. If user exists return  LibAppUserAndUserDetailsReply
-        @CrossOrigin(origins = "*")
         @RequestMapping(path="/users/check_user",  method=RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	    public LibAppUserAndUserDetailsReply check_user(@RequestBody PostRequest req){
         LibAppUserAndUserDetailsReply reply = new LibAppUserAndUserDetailsReply();
@@ -103,7 +103,6 @@ public class UserController {
         reply.users.add(userMapper.fromInternal(userService.getUserById(userid)));
         return reply;
     }
-                @CrossOrigin(origins = "*")
 	        @RequestMapping(path="/users/add",  method=RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public LibAppUserAndUserDetailsReply addUser( @RequestBody PostRequest req){
         LibAppUserAndUserDetailsReply rep = new LibAppUserAndUserDetailsReply();

@@ -42,11 +42,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  *
  * @author al
  */
-@RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-@AutoConfigureMockMvc
+//@RunWith(SpringRunner.class)
+//@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
+//@AutoConfigureMockMvc
 public class UserControllerTest {
-    public final static String AUTH_HTTP_HEADER ="X-Authorization";
+    /*public final static String AUTH_HTTP_HEADER ="X-Authorization";
     private static String token = null;
     @Autowired
     private MockMvc mockMvc;
@@ -120,5 +120,5 @@ public class UserControllerTest {
                     .andExpect(status().isOk());
 
         }
-    }
+    }*/
 }
