@@ -48,7 +48,7 @@ public class Notification implements Serializable {
         @Temporal(TemporalType.TIMESTAMP)
 	private Date date;
         @Basic(optional = false)
-        @Column(name="isChecked")
+        @Column(name="is_checked")
         private boolean isChecked;
 	@JoinColumn(name = "user_id", referencedColumnName = "user_id")
         @ManyToOne(optional = false)
@@ -99,11 +99,11 @@ public class Notification implements Serializable {
 	public void setUserId(Appuser userId) {
 		this.userId = userId;
 	}
-        public boolean getChecked() {
+        public boolean getIsChecked() {
 		return isChecked;
 	}
 
-	public void setChecked(boolean checked) {
+	public void setIsChecked(boolean checked) {
 		this.isChecked = checked;
 	}
 

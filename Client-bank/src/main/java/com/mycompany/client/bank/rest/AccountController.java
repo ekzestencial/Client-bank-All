@@ -118,16 +118,20 @@ public class AccountController {
 		
 		if(accFrom.getValue() - transTo.value < -4000.0) {
 			reply.error_message = "Превышен кредитный лимит! Введите другую сумму для перевода";
+			reply.account = accMapper.fromInternal(accFrom);
+			transService.getByAccountId(accId).forEach(t -> reply.transaction.add(transMapper.fromInternal(t)));
 			return reply;
 		}
 		Account accTo = accService.getAccount(transTo.accountId);
 		
-		accFrom.setValue(accFrom.getValue() - transTo.value);
-		accTo.setValue(accTo.getValue() + transTo.value);
-		
-		accService.addAccount(accFrom);
-		accService.addAccount(accTo);
-		
+		try {
+			accService.transfer(accFrom, accTo, transTo.value);
+		} catch (Exception e) {
+			reply.error_message = "Ошибка при попытке перевода денег";
+			reply.account = accMapper.fromInternal(accFrom);
+			transService.getByAccountId(accId).forEach(t -> reply.transaction.add(transMapper.fromInternal(t)));
+			return reply;
+		}
 		LibTransaction transFrom = new LibTransaction();
 		transFrom.accountId = accId;
 		transFrom.value = -transTo.value;

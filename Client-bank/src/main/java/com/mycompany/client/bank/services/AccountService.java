@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mycompany.client.bank.jpa.Account;
 import com.mycompany.client.bank.jpa.Appuser;
@@ -27,10 +29,11 @@ public class AccountService {
 		return accountRepo.findOne(id);
 	}
 	
-	public void changeValue(Long id, double value) {
-		Account current = accountRepo.findOne(id);
-		double newValue = current.getValue() + value;
-		current.setValue(newValue);
-		accountRepo.save(current);
+	@Transactional(propagation = Propagation.REQUIRED)
+	public void transfer(Account from, Account to, double value) {
+		from.setValue(from.getValue() - value);
+		to.setValue(to.getValue() + value);
+		accountRepo.save(from);
+		accountRepo.save(to);
 	}
 }

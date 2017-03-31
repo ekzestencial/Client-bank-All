@@ -74,7 +74,7 @@ public class UserController {
         userService.getUserByName(username).setLastActivity(Date.from(Instant.now()));
         List<Notification> lst=notifService.getAllUserNotifications(userService.getUserByName(username));
         for(Notification notif : lst){
-        if(notif.getChecked())lst.remove(notif);
+        if(notif.getIsChecked())lst.remove(notif);
         }
         reply.notif_size=lst.size();
         reply.wallet=userService.getUserByName(username).getWallet();
