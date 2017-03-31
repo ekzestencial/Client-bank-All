@@ -1,5 +1,7 @@
 package com.mycompany.client.bank.rest;
 
+import com.mycompany.client.bank.api.LibAccount;
+import com.mycompany.client.bank.api.LibAccountReply;
 import com.mycompany.client.bank.api.LibAppUserAndUserDetailsReply;
 import com.mycompany.client.bank.api.PostRequstLibAuthorization;
 import com.mycompany.client.bank.api.LibNotificationReply;
@@ -7,12 +9,14 @@ import com.mycompany.client.bank.api.PostRequest;
 import com.mycompany.client.bank.api.User_Info_Reply;
 import com.mycompany.client.bank.jpa.Account;
 import com.mycompany.client.bank.jpa.Appuser;
+import com.mycompany.client.bank.jpa.Bank;
 import com.mycompany.client.bank.jpa.Notification;
 import com.mycompany.client.bank.jpa.Userdetails;
 import com.mycompany.client.bank.services.AccountMapper;
 import com.mycompany.client.bank.services.AccountService;
 import com.mycompany.client.bank.services.AppUserAndUserDetailsMapper;
 import com.mycompany.client.bank.services.AppUserAndUserDetailsService;
+import com.mycompany.client.bank.services.BankService;
 import com.mycompany.client.bank.services.NotificationMapper;
 import com.mycompany.client.bank.services.NotificationService;
 import java.time.Instant;
@@ -39,6 +43,8 @@ public class UserController {
     NotificationMapper notifMapper;
     @Autowired
     AccountService accountService;
+    @Autowired
+    BankService bankService;
     @Autowired
     AccountMapper accountMapper;
     
@@ -81,6 +87,20 @@ public class UserController {
         reply.currentTime=Date.from(Instant.now()).toString();
         Userdetails ud=userService.getUserByName(username).getUserdetails();
         reply.FullName=ud.getFirstName() + " " + ud.getLastName();
+        return reply;
+    }
+    @RequestMapping(path="/users/{username}/accounts", method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public LibAccountReply getAccountsByUserName(@PathVariable String username){
+    LibAccountReply reply = new LibAccountReply();
+        List<Account> lst=accountService.getUserAccounts(userService.getUserByName(username));
+        for(Account account : lst){
+        LibAccount tempAcc=accountMapper.fromInternal(account);
+        Bank tempBank=bankService.findByBankId(account.getBankId().getBankId());
+        tempAcc.bankName=tempBank.getName();
+        tempAcc.CreditPersent=String.valueOf(tempBank.getCreditPersent());
+        tempAcc.DepositPersent=String.valueOf(tempBank.getDepositPersent());
+        reply.accounts.add(tempAcc);
+        }
         return reply;
     }
     // check_user method. If user exists return  LibAppUserAndUserDetailsReply
