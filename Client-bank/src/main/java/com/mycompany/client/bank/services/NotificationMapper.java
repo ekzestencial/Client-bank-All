@@ -24,7 +24,7 @@ public class NotificationMapper {
 			ln.text = n.getText();
 			ln.date = String.valueOf(n.getDate());
 			ln.userId = n.getUserId().getUserId();
-                        ln.isChecked=n.getChecked();
+                        ln.isChecked=n.getIsChecked();
 		}
 		return ln;
 	}

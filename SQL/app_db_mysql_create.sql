@@ -62,7 +62,7 @@ CREATE TABLE notification (
 	user_id BIGINT NOT NULL,
 	text TEXT NOT NULL,
 	date DATETIME NOT NULL,
-        isChecked bool NOT NULL,
+        is_checked bool NOT NULL,
 	PRIMARY KEY (notification_id),
 	FOREIGN KEY (user_id) REFERENCES appuser(user_id)
 );
