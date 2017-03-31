@@ -1,8 +1,9 @@
 package com.mycompany.client.bank.tests.unit;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
 
 import java.util.Date;
+import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,19 +22,17 @@ public class NotificationServiceTest {
 	
 	@Autowired
 	NotificationService service;
-
+	
 	@Test
 	public void testGetAllUserNotifications() {
-		//fail("Not yet implemented");
+		List<Notification> list = service.getAllUserNotifications(new Appuser(1L));
+		assert(list.size() == 2);
 	}
 
 	@Test
 	public void testAddNotification() {
-		//Notification n = new Notification(1L, "Hello", new Date());
-		//Appuser u = new Appuser(1L);
-		//n.setUserId(u);
-		
-		//assert(service.addNotification(n) == n);
+		Notification n = new Notification(5L, "Hello", new Date(), true);
+		n.setUserId(new Appuser(2L));
+		assertNotNull(service.addNotification(n));
 	}
-
 }
