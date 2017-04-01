@@ -57,10 +57,19 @@ public class AppUserAndUserDetailsMapper {
 
 	private Appuser newUser(Long user_id) {
 		//TODO: get logged user from security context
+		Long id;
+		if (user_id != null) {
+			id = user_id;
+		} else {
+			id = EntityIdGenerator.random();
+			while(userRepository.findOne(id) != null) {
+				id = EntityIdGenerator.random();
+			}
+		}
 		Appuser au = new Appuser();
 		Userdetails ud = new Userdetails();
-		au.setUserId(user_id);
-		ud.setUserId(user_id);
+		au.setUserId(id);
+		ud.setUserId(id);
 		au.setUserdetails(ud);
 		return au;
 	}

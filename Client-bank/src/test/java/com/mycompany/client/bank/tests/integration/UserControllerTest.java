@@ -42,11 +42,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  *
  * @author al
  */
-//@RunWith(SpringRunner.class)
-//@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-//@AutoConfigureMockMvc
+@RunWith(SpringRunner.class)
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
+@AutoConfigureMockMvc
 public class UserControllerTest {
-    /*public final static String AUTH_HTTP_HEADER ="X-Authorization";
+    public final static String AUTH_HTTP_HEADER ="X-Authorization";
     private static String token = null;
     @Autowired
     private MockMvc mockMvc;
@@ -91,6 +91,7 @@ public class UserControllerTest {
         rq.user.firstName = "Test1First";
         rq.user.lastName = "Test1Last";
         rq.user.login = "test_user_1";
+        rq.user.password = "qwerty";
         rq.user.email = "test@test.com";
 	rq.user.adress ="Puhova";
 		rq.user.wallet=0D;
@@ -112,13 +113,13 @@ public class UserControllerTest {
         String reply = result.getResponse().getContentAsString();
         LibAppUserAndUserDetailsReply ur = om.readValue(reply, LibAppUserAndUserDetailsReply.class);
         assertEquals("Reurn code in not 0", ur.retcode.longValue(), 0L);
-        if (ur.retcode == 0) {
+        /*if (ur.retcode == 0) {
             mockMvc.perform(get("/users/del/" + ur.users.get(0).user_id)
                     .accept(MediaType.APPLICATION_JSON_UTF8)
                     .header(AUTH_HTTP_HEADER, token)
             )
                     .andExpect(status().isOk());
 
-        }
-    }*/
+        }*/
+    }
 }

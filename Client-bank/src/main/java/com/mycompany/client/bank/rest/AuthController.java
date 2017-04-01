@@ -47,7 +47,9 @@ private static final Logger logger =  LoggerFactory.getLogger(AuthController.cla
         LoginReply rep = new LoginReply();
            Appuser au; 
 	      req.password=AppUserAndUserDetailsService.digest(req.password);
+	      System.out.println("pass = " + req.password);
            au = userService.authUser(req.login,req.password);
+           System.out.println("USER = " + au);
            if(au!=null){
               String token = tokenProvider.newToken(au);
               tokenProvider.put(token, new AuthUser(au));
