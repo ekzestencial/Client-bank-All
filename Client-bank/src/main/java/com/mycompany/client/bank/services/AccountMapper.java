@@ -9,6 +9,8 @@ import com.mycompany.client.bank.jpa.Account;
 import com.mycompany.client.bank.repository.AccountRepository;
 import com.mycompany.client.bank.repository.BankRepository;
 import com.mycompany.client.bank.repository.UserRepository;
+import com.mycompany.client.bank.utils.EntityIdGenerator;
+
 import java.time.Instant;
 import org.springframework.stereotype.Component;
 @Component
@@ -44,7 +46,11 @@ public class AccountMapper {
                         if(la.credit_limit!=null)acc.setCreditLimit(la.credit_limit);
                         else acc.setCreditLimit(0L);
 		} else {
-			acc = new Account(Long.valueOf(la.hashCode()), 0L, la.value, Date.from(Instant.now()));
+			Long newId = EntityIdGenerator.random();
+			while(accRepo.findOne(newId) != null) {
+				newId = EntityIdGenerator.random();
+			}
+			acc = new Account(newId, 0L, la.value, Date.from(Instant.now()));
 			acc.setBankId(bankRepo.findOne(la.bankId));
 			acc.setUserId(userRepo.findOne(la.userId));
 		}
