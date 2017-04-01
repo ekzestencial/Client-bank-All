@@ -14,10 +14,18 @@ public class LibAccount {
 	public String openDate;
         @XmlElement(required = false)
         public Long credit_limit;
-	@XmlElement(required = true)
+	@XmlElement(required = false)
 	public Long userId;
-	@XmlElement(required = true)
+	@XmlElement(required = false)
 	public Long bankId;
+        @XmlElement(required =  false)
+        public String bankName;
+        @XmlElement(required = false)
+        public String CreditPersent;
+        @XmlElement(required = false)
+        public String DepositPersent;
+        @XmlElement(required = false)
+        public Long CreditLimit;
 	
 	@Override
 	public int hashCode() {

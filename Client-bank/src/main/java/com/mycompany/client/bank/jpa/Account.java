@@ -69,7 +69,7 @@ public class Account implements Serializable {
 		this.accountId = accountId;
 	}
 
-	public Account(Long accountId, double value, Date openDate) {
+	public Account(Long accountId, Long credit_limit, double value, Date openDate) {
 		this.accountId = accountId;
 		this.value = value;
 		this.openDate = openDate;

@@ -38,14 +38,13 @@ public class AccountMapper {
 	
 	public Account toInternal(LibAccount la) {
 		Account acc = null;
-		
 		if(la.accountId != null) {
 			acc = accRepo.findOne(la.accountId);
 			acc.setValue(la.value);
                         if(la.credit_limit!=null)acc.setCreditLimit(la.credit_limit);
                         else acc.setCreditLimit(0L);
 		} else {
-			acc = new Account(Long.valueOf(la.hashCode()), la.value, Date.from(Instant.now()));
+			acc = new Account(Long.valueOf(la.hashCode()), 0L, la.value, Date.from(Instant.now()));
 			acc.setBankId(bankRepo.findOne(la.bankId));
 			acc.setUserId(userRepo.findOne(la.userId));
 		}

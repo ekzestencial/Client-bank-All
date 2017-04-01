@@ -42,7 +42,7 @@ public Bank findByBankId(Long id){
     public List<Bank> findByBankPersent(int deposit_persent, int credit_persent){
         List<Bank> banks_list=bankRepository.findByDepositPersentGreaterThan(deposit_persent);
         if(credit_persent>0)banks_list.retainAll(bankRepository.findByCreditPersentLessThan(credit_persent));
-        return  banks_list;
+        return banks_list;
     }
 public Bank addBank(Bank bank) {
         bank = bankRepository.save(bank);

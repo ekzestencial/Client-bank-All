@@ -19,7 +19,7 @@ public class LibBank {
     @XmlElement(required=true)
     public String name;
     @XmlElement(required=true)
-    public int creditPersent;
+    public Integer creditPersent;
     @XmlElement(required=true)
-    public int depositPersent;
+    public Integer depositPersent;
 }

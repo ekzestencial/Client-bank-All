@@ -9,12 +9,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mycompany.client.bank.api.LibAccount;
+import com.mycompany.client.bank.api.LibAccountReply;
+import com.mycompany.client.bank.api.LibBank;
 import com.mycompany.client.bank.api.LibBankReply;
 import com.mycompany.client.bank.api.LibTransaction;
 import com.mycompany.client.bank.api.LibTransactionReply;
 import com.mycompany.client.bank.api.PostRequest;
 import com.mycompany.client.bank.jpa.Account;
 import com.mycompany.client.bank.jpa.Appuser;
+import com.mycompany.client.bank.jpa.Bank;
 import com.mycompany.client.bank.services.AccountMapper;
 import com.mycompany.client.bank.services.AccountService;
 import com.mycompany.client.bank.services.AppUserAndUserDetailsService;
@@ -22,6 +25,10 @@ import com.mycompany.client.bank.services.BankMapper;
 import com.mycompany.client.bank.services.BankService;
 import com.mycompany.client.bank.services.TransactionMapper;
 import com.mycompany.client.bank.services.TransactionService;
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @RestController
 public class AccountController {
@@ -54,28 +61,32 @@ public class AccountController {
 		return reply;
 	}
 	
-	@RequestMapping(path="/{userId}/{bankId}", method=RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public LibTransactionReply createAccount(@PathVariable String userId, @PathVariable String bankId) {
-		LibTransactionReply reply = new LibTransactionReply();
+	@RequestMapping(path="/{username}/addNewAccount/{bank_name}", method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public LibAccountReply createAccount(@PathVariable String username, @PathVariable String bank_name) {
+		LibAccountReply reply = new LibAccountReply();
 		
 		LibAccount libAcc = new LibAccount();
-		libAcc.bankId = Long.valueOf(bankId);
-		libAcc.userId = Long.valueOf(userId);
+		libAcc.bankId = bankService.findByBankName(bank_name).getBankId();
+		libAcc.userId = userService.getUserByName(username).getUserId();
 		libAcc.value = 0.0;
 		
 		Account acc = accMapper.toInternal(libAcc);
 		accService.addAccount(acc);
 		
-		reply.account = accMapper.fromInternal(acc);
+		reply.accounts.add(accMapper.fromInternal(acc));
 		return reply;
 	}
 	
-	@RequestMapping(path="/banks", method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public LibBankReply getBanks() {
-		LibBankReply reply = new LibBankReply();
-		
-		bankService.getAll().forEach(b -> reply.banks.add(bankMapper.fromInternal(b)));
-		
+	@RequestMapping(path="/banks", method=RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public LibBankReply getBanks(@RequestBody LibBank req) {
+                List<Bank> banks = new ArrayList<>();
+                if(req.name!="")banks.addAll(bankService.findByPartBankName(req.name));
+                else banks.addAll(bankService.getAll());
+                banks.retainAll(bankService.findByBankPersent(req.depositPersent, req.creditPersent));
+                LibBankReply reply=new LibBankReply();
+                for(Bank bank : banks){
+                reply.banks.add(bankMapper.fromInternal(bank));
+                }
 		return reply;
 	}
 	
