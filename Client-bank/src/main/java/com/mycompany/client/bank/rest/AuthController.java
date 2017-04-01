@@ -46,6 +46,7 @@ private static final Logger logger =  LoggerFactory.getLogger(AuthController.cla
     public LoginReply authUser( @RequestBody PostRequstLibAuthorization req){
         LoginReply rep = new LoginReply();
            Appuser au; 
+	      req.password=AppUserAndUserDetailsService.digest(req.password);
            au = userService.authUser(req.login,req.password);
            if(au!=null){
               String token = tokenProvider.newToken(au);

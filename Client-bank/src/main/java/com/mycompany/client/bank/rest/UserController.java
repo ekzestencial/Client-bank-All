@@ -129,7 +129,11 @@ public class UserController {
         try{
            Appuser au;
            if(userService.getUserById(req.user.user_id)!=null) throw new Exception("This user already exist in database!");
-           au = userService.addUser(userMapper.toInternal(req.user));
+	   au=userMapper.toInternal(req.user);
+	   String password=au.getPassword();
+	   au.setPassword(AppUserAndUserDetailsService.digest(password));
+           au = userService.addUser(au);
+	   
            rep.users.add(userMapper.fromInternal(au));
         }catch(Exception e){
             rep.retcode = -1;
