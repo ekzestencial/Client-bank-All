@@ -21,6 +21,6 @@ public class LibTransaction {
     public String date;
     @XmlElement(required = false)
     public String Info;
-    @XmlElement(required = true)
+    @XmlElement(required = false)
     public Long accountId;
 }

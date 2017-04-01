@@ -25,9 +25,7 @@ import com.mycompany.client.bank.services.BankMapper;
 import com.mycompany.client.bank.services.BankService;
 import com.mycompany.client.bank.services.TransactionMapper;
 import com.mycompany.client.bank.services.TransactionService;
-import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -48,7 +46,7 @@ public class AccountController {
 	@Autowired
 	private AppUserAndUserDetailsService userService;
 	
-	@RequestMapping(path="/{accountId}", method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(path="/account={accountId}", method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public LibTransactionReply getAccountInfoAndTransactions(@PathVariable String accountId) {
 		
 		LibTransactionReply reply = new LibTransactionReply();
