@@ -15,7 +15,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class LibBank {
     @XmlElement(required=false)
-    public Long bank_id;
+    public String bank_id;
     @XmlElement(required=true)
     public String name;
     @XmlElement(required=true)

@@ -21,7 +21,7 @@ public class BankMapper {
         LibBank lb = null;
         if (b != null) {
             lb = new LibBank();
-            lb.bank_id=b.getBankId();
+            lb.bank_id=b.getBankId().toString();
             lb.name=b.getName();
             lb.creditPersent=b.getCreditPersent();
             lb.depositPersent=b.getDepositPersent();
@@ -33,7 +33,7 @@ public class BankMapper {
         Bank b = null;
         //first, check if it exists
         if (lb.bank_id != null) {
-            b = bankRepository.findOne(lb.bank_id);
+            b = bankRepository.findOne(Long.valueOf(lb.bank_id));
         }
         new_Id=Long.valueOf(lb.name.hashCode());
         if (b == null) { //not found, create new
@@ -42,7 +42,7 @@ public class BankMapper {
         }
         else{
         //logger.debug("Updating existing user");
-        b.setBankId(lb.bank_id);
+        b.setBankId(Long.valueOf(lb.bank_id));
         b.setName(lb.name);
         b.setDepositPersent(lb.depositPersent);
         b.setCreditPersent(lb.creditPersent);

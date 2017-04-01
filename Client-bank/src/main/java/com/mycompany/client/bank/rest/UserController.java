@@ -128,12 +128,11 @@ public class UserController {
         LibAppUserAndUserDetailsReply rep = new LibAppUserAndUserDetailsReply();
         try{
            Appuser au;
-           if(req.user.user_id != null && userService.getUserById(req.user.user_id)!=null) throw new Exception("This user already exist in database!");
+           if(req.user.user_id!=null && userService.getUserById(Long.valueOf(req.user.user_id))!=null) throw new Exception("This user already exist in database!");
 	   au=userMapper.toInternal(req.user);
 	   String password=au.getPassword();
 	   au.setPassword(AppUserAndUserDetailsService.digest(password));
            au = userService.addUser(au);
-	   
            rep.users.add(userMapper.fromInternal(au));
         }catch(Exception e){
             rep.retcode = -1;

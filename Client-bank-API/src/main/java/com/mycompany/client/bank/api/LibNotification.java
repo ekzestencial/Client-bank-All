@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class LibNotification {
 	
 	@XmlElement(required = false)
-	public Long notificationId;
+	public String notificationId;
 	@XmlElement(required = true)
 	public String text;
 	@XmlElement(required = false)

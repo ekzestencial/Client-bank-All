@@ -42,7 +42,7 @@ public class AppUserAndUserDetailsMapper {
 		Userdetails ud = u.getUserdetails();
 		lu.login = u.getUsername();
                 lu.password = u.getPassword();
-		lu.user_id = u.getUserId();
+		lu.user_id = u.getUserId().toString();
 		lu.wallet = u.getWallet();
                 lu.email=u.getEmail();
                 lu.role_id = u.getRoleId().getRoleId();
@@ -80,11 +80,11 @@ public class AppUserAndUserDetailsMapper {
 		Appuser au = null;
 
 //check user existence
-		if (lu.user_id != null) {
-			au = userRepository.findOne(lu.user_id);
+		if (lu.user_id!=null) {
+			au = userRepository.findOne(Long.valueOf(lu.user_id));
 		}
 		if (au == null) { //not found, create new
-			au = newUser(lu.user_id);
+			au = newUser(Long.valueOf(lu.user_id));
 		}
 		Userdetails ud = au.getUserdetails();
 		au.setUsername(lu.login);

@@ -64,8 +64,8 @@ public class AccountController {
 		LibAccountReply reply = new LibAccountReply();
 		
 		LibAccount libAcc = new LibAccount();
-		libAcc.bankId = bankService.findByBankName(bank_name).getBankId();
-		libAcc.userId = userService.getUserByName(username).getUserId();
+		libAcc.bankId = bankService.findByBankName(bank_name).getBankId().toString();
+		libAcc.userId = userService.getUserByName(username).getUserId().toString();
 		libAcc.value = 0.0;
 		
 		Account acc = accMapper.toInternal(libAcc);
@@ -108,7 +108,7 @@ public class AccountController {
 		accService.addAccount(acc);
 		userService.addUser(user);
 		
-		tr.accountId = accId;
+		tr.accountId = accId.toString();
 		transService.addTransaction(transMapper.toInternal(tr));
 		
 		reply.account = accMapper.fromInternal(acc);
@@ -131,7 +131,7 @@ public class AccountController {
 			transService.getByAccountId(accId).forEach(t -> reply.transaction.add(transMapper.fromInternal(t)));
 			return reply;
 		}
-		Account accTo = accService.getAccount(transTo.accountId);
+		Account accTo = accService.getAccount(Long.valueOf(transTo.accountId));
 		
 		try {
 			accService.transfer(accFrom, accTo, transTo.value);
@@ -142,7 +142,7 @@ public class AccountController {
 			return reply;
 		}
 		LibTransaction transFrom = new LibTransaction();
-		transFrom.accountId = accId;
+		transFrom.accountId = accId.toString();
 		transFrom.value = -transTo.value;
 		
 		transService.addTransaction(transMapper.toInternal(transFrom));

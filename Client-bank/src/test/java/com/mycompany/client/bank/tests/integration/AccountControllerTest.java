@@ -42,8 +42,8 @@ public class AccountControllerTest {
             return;
         }
         PostRequstLibAuthorization rq= new PostRequstLibAuthorization();
-        rq.login = "admin";
-        rq.password = "qwerty";
+        rq.login = "artem7902";
+        rq.password = "335790";
         ObjectMapper om = new ObjectMapper();
         String content = om.writeValueAsString(rq);
         MvcResult result = mockMvc.perform(post("/auth")
@@ -64,7 +64,7 @@ public class AccountControllerTest {
 			this.mockMvc.perform(get("/account=1")
 			        .header(AUTH_HTTP_HEADER, token))
 					.andDo(print()).andExpect(status().isOk())
-					.andExpect(content().string(containsString("admin")));
+					.andExpect(content().string(containsString("Sveta Novikova")));
 		} catch (Exception e) {
 			fail("Exception while getting account info");
 		}

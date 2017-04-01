@@ -20,7 +20,7 @@ public class NotificationMapper {
 		
 		if(n != null) {
 			ln = new LibNotification();
-			ln.notificationId = n.getNotificationId();
+			ln.notificationId = n.getNotificationId().toString();
 			ln.text = n.getText();
 			ln.date = String.valueOf(n.getDate());
 			ln.userId = n.getUserId().getUserId();

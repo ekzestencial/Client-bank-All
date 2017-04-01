@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class LibAccount {
 	
 	@XmlElement(required = false)
-	public Long accountId;
+	public String accountId;
 	@XmlElement(required = true)
 	public Double value;
 	@XmlElement(required = false)
@@ -15,9 +15,9 @@ public class LibAccount {
         @XmlElement(required = false)
         public Long credit_limit;
 	@XmlElement(required = false)
-	public Long userId;
+	public String userId;
 	@XmlElement(required = false)
-	public Long bankId;
+	public String bankId;
         @XmlElement(required =  false)
         public String bankName;
         @XmlElement(required = false)

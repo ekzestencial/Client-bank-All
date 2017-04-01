@@ -14,7 +14,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class LibTransaction {
     @XmlElement(required = false)
-    public Long transactionId;
+    public String transactionId;
     @XmlElement(required = true)
     public Double value;
     @XmlElement(required = false)
@@ -22,5 +22,5 @@ public class LibTransaction {
     @XmlElement(required = false)
     public String Info;
     @XmlElement(required = false)
-    public Long accountId;
+    public String accountId;
 }

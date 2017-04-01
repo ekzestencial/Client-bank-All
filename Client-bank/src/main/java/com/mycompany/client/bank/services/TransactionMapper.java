@@ -33,10 +33,10 @@ public class TransactionMapper {
         LibTransaction lt = null;
         if (t != null) {
             lt=new LibTransaction();
-            lt.transactionId=t.getTransactionId();
+            lt.transactionId=t.getTransactionId().toString();
             lt.date=t.getDate().toString();
             lt.value=t.getValue();
-            lt.accountId=t.getAccountId().getAccountId();
+            lt.accountId=t.getAccountId().getAccountId().toString();
             lt.Info=t.getTransactionInfo();
         }
         return lt;
@@ -46,13 +46,13 @@ public class TransactionMapper {
         Transaction t = null;
         //first, check if it exists
         if (lt.transactionId != null) {
-           t = transactionRepository.findOne(lt.transactionId);
+           t = transactionRepository.findOne(Long.valueOf(lt.transactionId));
         }
         new_Id=EntityIdGenerator.random();
         while(transactionRepository.findOne(new_Id)!=null){
         new_Id=EntityIdGenerator.random();
         }
-        Account temp_acc=accountRepository.findOne(lt.accountId);
+        Account temp_acc=accountRepository.findOne(Long.valueOf(lt.accountId));
         if(temp_acc==null){
             //debug here
             return null;
@@ -63,7 +63,7 @@ public class TransactionMapper {
         }
         else{
         //logger.debug("Updating existing user");
-        t.setTransactionId(lt.transactionId);
+        t.setTransactionId(Long.valueOf(lt.transactionId));
         t.setValue(lt.value);
         t.setDate(String_Date_util.String_to_Date(lt.date));
         t.setTransactionInfo(lt.Info);
