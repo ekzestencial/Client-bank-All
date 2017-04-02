@@ -7,6 +7,8 @@ import com.mycompany.client.bank.api.PostRequstLibAuthorization;
 import com.mycompany.client.bank.api.LibNotificationReply;
 import com.mycompany.client.bank.api.PostRequest;
 import com.mycompany.client.bank.api.User_Info_Reply;
+import com.mycompany.client.bank.auth.AuthUser;
+import com.mycompany.client.bank.auth.AuthorityName;
 import com.mycompany.client.bank.jpa.Account;
 import com.mycompany.client.bank.jpa.Appuser;
 import com.mycompany.client.bank.jpa.Bank;
@@ -19,11 +21,14 @@ import com.mycompany.client.bank.services.AppUserAndUserDetailsService;
 import com.mycompany.client.bank.services.BankService;
 import com.mycompany.client.bank.services.NotificationMapper;
 import com.mycompany.client.bank.services.NotificationService;
+import com.mycompany.client.bank.utils.PermisChecker;
 import java.time.Instant;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -73,9 +78,10 @@ public class UserController {
         }
         return reply;
     }
-  
+     @Secured({"ROLE_USER"})
      @RequestMapping(path="/users/{username}/sliderInfo",  method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public User_Info_Reply getAppInfoByUserName(@PathVariable String username){
+        if(!PermisChecker.ForUser(username)) return null;
         User_Info_Reply reply=new User_Info_Reply();
         userService.getUserByName(username).setLastActivity(Date.from(Instant.now()));
         List<Notification> lst=notifService.getAllUserNotifications(userService.getUserByName(username));
@@ -89,8 +95,10 @@ public class UserController {
         reply.FullName=ud.getFirstName() + " " + ud.getLastName();
         return reply;
     }
+    @Secured({"ROLE_USER", "ROLE_ADMIN"})
     @RequestMapping(path="/users/{username}/accounts", method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public LibAccountReply getAccountsByUserName(@PathVariable String username){
+    if(!PermisChecker.ForUserAndAdmin(username)) return null;
     LibAccountReply reply = new LibAccountReply();
         List<Account> lst=accountService.getUserAccounts(userService.getUserByName(username));
         for(Account account : lst){

@@ -48,9 +48,10 @@ static final String CLAIM_KEY_USERNAME = "sub";
 
     public AuthUser get(String token) {
         AuthUser res = null; 
-        if (token != null) {
+        if (token!=null && !"".equals(token)) {
             Claims c = getClaimsFromToken(token);
-            String key = c.getId();            
+            String key = c.getId();
+            if(key==null)return null;
             res = (AuthUser) instance.getMap("token-cache").get(key);
         }
         return res;

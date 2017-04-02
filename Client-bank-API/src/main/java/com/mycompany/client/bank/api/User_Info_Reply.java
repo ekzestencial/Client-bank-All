@@ -16,12 +16,12 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement
 public class User_Info_Reply {
-    @XmlElement(required = true)
+    @XmlElement(required = false)
     public Double wallet;
-    @XmlElement(required = true)
+    @XmlElement(required = false)
     public Integer notif_size;
-    @XmlElement (required = true)
+    @XmlElement (required = false)
     public String currentTime;
-    @XmlElement (required = true)
+    @XmlElement (required = false)
     public String FullName;
 }
