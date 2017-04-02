@@ -15,6 +15,7 @@ import com.mycompany.client.bank.api.LibBankReply;
 import com.mycompany.client.bank.api.LibTransaction;
 import com.mycompany.client.bank.api.LibTransactionReply;
 import com.mycompany.client.bank.api.PostRequest;
+import com.mycompany.client.bank.api.TransferRequest;
 import com.mycompany.client.bank.jpa.Account;
 import com.mycompany.client.bank.jpa.Appuser;
 import com.mycompany.client.bank.jpa.Bank;
@@ -25,6 +26,10 @@ import com.mycompany.client.bank.services.BankMapper;
 import com.mycompany.client.bank.services.BankService;
 import com.mycompany.client.bank.services.TransactionMapper;
 import com.mycompany.client.bank.services.TransactionService;
+import com.mycompany.client.bank.utils.PermisChecker;
+
+import static org.mockito.Matchers.anyDouble;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,6 +53,10 @@ public class AccountController {
 	
 	@RequestMapping(path="/account={accountId}", method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public LibTransactionReply getAccountInfoAndTransactions(@PathVariable String accountId) {
+		
+		if(!PermisChecker.ForUserAndAdmin(accService.getAccount(Long.valueOf(accountId)).getUserId().getUsername())) {
+			return null;
+		}
 		
 		LibTransactionReply reply = new LibTransactionReply();
 		Long id = Long.valueOf(accountId);
@@ -118,23 +127,24 @@ public class AccountController {
 	}
 	
 	@RequestMapping(path="/{accountId}/transfer", method=RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public LibTransactionReply transfer(@RequestBody PostRequest req, @PathVariable String accountId) {
+	public LibTransactionReply transfer(@RequestBody TransferRequest req, @PathVariable String accountId) {
 		LibTransactionReply reply = new LibTransactionReply();
 		
-		LibTransaction transTo = req.transaction;
+		//LibTransaction transTo = req.transaction;
+		double value = Double.valueOf(req.value);
 		Long accId = Long.valueOf(accountId);
 		Account accFrom = accService.getAccount(accId);
 		
-		if(accFrom.getValue() - transTo.value < -4000.0) {
+		if(accFrom.getValue() - value < -4000.0) {
 			reply.error_message = "Превышен кредитный лимит! Введите другую сумму для перевода";
 			reply.account = accMapper.fromInternal(accFrom);
 			transService.getByAccountId(accId).forEach(t -> reply.transaction.add(transMapper.fromInternal(t)));
 			return reply;
 		}
-		Account accTo = accService.getAccount(Long.valueOf(transTo.accountId));
+		Account accTo = accService.getAccount(Long.valueOf(req.toAccountId));
 		
 		try {
-			accService.transfer(accFrom, accTo, transTo.value);
+			accService.transfer(accFrom, accTo, value);
 		} catch (Exception e) {
 			reply.error_message = "Ошибка при попытке перевода денег";
 			reply.account = accMapper.fromInternal(accFrom);
@@ -142,8 +152,13 @@ public class AccountController {
 			return reply;
 		}
 		LibTransaction transFrom = new LibTransaction();
-		transFrom.accountId = accId.toString();
-		transFrom.value = -transTo.value;
+		transFrom.accountId = accountId;
+		transFrom.value = -value;
+		transFrom.Info = "Перевод на счет " + req.toAccountId;
+		LibTransaction transTo = new LibTransaction();
+		transTo.accountId = req.toAccountId;
+		transTo.value = value;
+		transTo.Info = "Перевод со счета " + accountId;
 		
 		transService.addTransaction(transMapper.toInternal(transFrom));
 		transService.addTransaction(transMapper.toInternal(transTo));
