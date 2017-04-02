@@ -140,6 +140,7 @@ public class UserController {
 	   au=userMapper.toInternal(req.user);
 	   String password=au.getPassword();
 	   au.setPassword(AppUserAndUserDetailsService.digest(password));
+	   System.out.println(au);
            au = userService.addUser(au);
            rep.users.add(userMapper.fromInternal(au));
         }catch(Exception e){

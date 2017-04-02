@@ -197,7 +197,15 @@ public class Appuser implements Serializable {
 
 	@Override
 	public String toString() {
-		return "com.mycompany.client.bank.jpa.Appuser[ userId=" + userId + " ]";
+		String str = "userId = " + this.userId
+				+ "username = " + this.username
+				+ "pass = " + this.password
+				+ "email = " + this.email
+				+ "reg_date = " + this.regDate
+				+ "last_activity = " + this.lastActivity
+				+ "wallet = " + this.wallet;
+		return str;
+		//return "com.mycompany.client.bank.jpa.Appuser[ userId=" + userId + " ]";
 	}
 
 }
