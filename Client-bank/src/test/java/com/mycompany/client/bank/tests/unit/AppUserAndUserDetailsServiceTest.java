@@ -93,9 +93,9 @@ public class AppUserAndUserDetailsServiceTest {
 		Appuser au = new Appuser(user_id);
 		Userdetails ud = new Userdetails(user_id);
 		//determination of the appuser
-		au.setUsername("test");
+		au.setUsername("test2");
 		au.setPassword("fdsfewffds");
-		au.setEmail("test@rfd.com");
+		au.setEmail("test1@rfd.com");
 		au.setRegDate(date);
 		au.setLastActivity(date);
 		au.setRoleId(role);
@@ -113,10 +113,10 @@ public class AppUserAndUserDetailsServiceTest {
 		u = userService.getUserById(user_id);
 		assertNull("Can not delete user!", u);
 	}
-	@Test
-	public void testGetUserAndPassword(){
-		Appuser user = userService.getUserByUsernameAndPassword("artem79021","6ce4613a24fe91f14fe0cfa3dab6130ec39d109f86072cf99273d8e7049b3bf9494f8e679e1572b877ca1f6aeff03d054f2624355f0c28f9a5848fdce3e5ad63");
-		assertNotNull(user);
-	}
+//	@Test
+//	public void testGetUserAndPassword(){
+//		Appuser user = userService.getUserByUsernameAndPassword("artem79021","6ce4613a24fe91f14fe0cfa3dab6130ec39d109f86072cf99273d8e7049b3bf9494f8e679e1572b877ca1f6aeff03d054f2624355f0c28f9a5848fdce3e5ad63");
+//		assertNotNull(user);
+//	}
 
 }

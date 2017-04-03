@@ -19,6 +19,7 @@ import com.mycompany.client.bank.api.TransferRequest;
 import com.mycompany.client.bank.jpa.Account;
 import com.mycompany.client.bank.jpa.Appuser;
 import com.mycompany.client.bank.jpa.Bank;
+import com.mycompany.client.bank.jpa.Transaction;
 import com.mycompany.client.bank.services.AccountMapper;
 import com.mycompany.client.bank.services.AccountService;
 import com.mycompany.client.bank.services.AppUserAndUserDetailsService;
@@ -50,6 +51,21 @@ public class AccountController {
 	private BankMapper bankMapper;
 	@Autowired
 	private AppUserAndUserDetailsService userService;
+	
+	@RequestMapping(path = "/delete={accountId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public LibTransactionReply RemoveAllTransactions(@PathVariable String accountId) {
+		LibTransactionReply reply = new LibTransactionReply();
+		Long accountid = Long.valueOf(accountId);
+		List<Transaction> tr = transService.getByAccountId(accountid);
+		transService.deleteAllTransactions(tr);
+		if (tr.isEmpty()) {
+			reply.retcode = 1;
+
+		} else {
+			reply.retcode = 0;
+		}
+		return reply;
+	}
 	
 	@RequestMapping(path="/account={accountId}", method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public LibTransactionReply getAccountInfoAndTransactions(@PathVariable String accountId) {
