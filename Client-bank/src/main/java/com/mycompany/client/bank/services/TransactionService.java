@@ -32,7 +32,17 @@ public class TransactionService {
 
 	public List<Transaction> getByAccountId(Long id) {
 		//достань транзакции для определенного аккаунта по его айдишки
-		return transactionRep.findByAccountId(accountRep.findOne(id));
+		List<Transaction> list = transactionRep.findByAccountId(accountRep.findOne(id));
+		list.sort((Transaction t1, Transaction t2) -> {
+			if(t1.getDate().before(t2.getDate())) {
+				return 1;
+			} else if(t1.getDate().after(t2.getDate())) {
+				return -1;
+			}
+			return 0;
+		});
+		return list;
+		
 	}
 
 	public Transaction findByTransactionId(Long id) {
