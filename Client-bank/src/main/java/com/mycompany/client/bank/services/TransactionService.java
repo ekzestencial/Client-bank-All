@@ -20,17 +20,19 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class TransactionService {
+
 	@Autowired
 	TransactionRepository transactionRep;
-        @Autowired
-        AccountRepository accountRep;
+	@Autowired
+	AccountRepository accountRep;
+
 	public List<Transaction> getAll() {
 		return transactionRep.findAll();
 	}
-	
+
 	public List<Transaction> getByAccountId(Long id) {
 		//достань транзакции для определенного аккаунта по его айдишки
-                return transactionRep.findByAccountId(accountRep.findOne(id));
+		return transactionRep.findByAccountId(accountRep.findOne(id));
 	}
 
 	public Transaction findByTransactionId(Long id) {
@@ -41,10 +43,17 @@ public class TransactionService {
 		return transactionRep.save(transaction);
 	}
 
+	public void deleteAllTransactions(List <Transaction> tr) {
+		for (Transaction trans : tr) {
+			transactionRep.delete(tr);
+		}
+	}
+
 	public void delTransaction(Long id) {
 		Transaction t = transactionRep.findOne(id);
-		if (t != null)
+		if (t != null) {
 			transactionRep.delete(t);
+		}
 	}
 
 	public Transaction updateTransaction(Transaction transaction) {
@@ -58,4 +67,8 @@ public class TransactionService {
 	public List<Transaction> findByDate(Date date1, Date date2) {
 		return transactionRep.findByDateBetween(date1, date2);
 	}
+	public List<Transaction> findTransByAccount(Account accountId){
+	return transactionRep.findByAccountId(accountId);
+	}
+	
 }

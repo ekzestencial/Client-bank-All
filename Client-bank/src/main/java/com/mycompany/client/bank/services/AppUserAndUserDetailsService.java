@@ -19,6 +19,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.codec.Hex;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -50,7 +52,6 @@ public class AppUserAndUserDetailsService {
 		Long userId=user.getUserId();
 		return userDetailsRepository.findUserByUserId(userId);
 	}
-
 	public Appuser addUser(Appuser au) {
 		au = userRepository.save(au);
 		return au;
