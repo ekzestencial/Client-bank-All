@@ -19,6 +19,7 @@ import com.mycompany.client.bank.api.TransferRequest;
 import com.mycompany.client.bank.jpa.Account;
 import com.mycompany.client.bank.jpa.Appuser;
 import com.mycompany.client.bank.jpa.Bank;
+import com.mycompany.client.bank.jpa.Transaction;
 import com.mycompany.client.bank.services.AccountMapper;
 import com.mycompany.client.bank.services.AccountService;
 import com.mycompany.client.bank.services.AppUserAndUserDetailsService;
@@ -125,8 +126,18 @@ public class AccountController {
 		transService.addTransaction(transMapper.toInternal(tr));
 		
 		reply.account = accMapper.fromInternal(acc);
-		transService.getByAccountId(accId).forEach(t -> reply.transaction.add(transMapper.fromInternal(t)));
-		
+		//transService.getByAccountId(accId).forEach(t -> reply.transaction.add(transMapper.fromInternal(t)));
+		List<Transaction> list = transService.getByAccountId(accId);
+		list.sort((Transaction t1, Transaction t2) -> {
+			int val = 0;
+			if(t1.getDate().before(t2.getDate())) {
+				val = -1;
+			} else if(t1.getDate().after(t2.getDate())) {
+				val = 1;
+			}
+			return val;
+		});
+		list.forEach(t -> reply.transaction.add(transMapper.fromInternal(t)));
 		return reply;
 	}
 	
@@ -168,8 +179,18 @@ public class AccountController {
 		transService.addTransaction(transMapper.toInternal(transTo));
 		
 		reply.account = accMapper.fromInternal(accFrom);
-		transService.getByAccountId(accId).forEach(t -> reply.transaction.add(transMapper.fromInternal(t)));
-		
+		//transService.getByAccountId(accId).forEach(t -> reply.transaction.add(transMapper.fromInternal(t)));
+		List<Transaction> list = transService.getByAccountId(accId);
+		list.sort((Transaction t1, Transaction t2) -> {
+			int val = 0;
+			if(t1.getDate().before(t2.getDate())) {
+				val = -1;
+			} else if(t1.getDate().after(t2.getDate())) {
+				val = 1;
+			}
+			return val;
+		});
+		list.forEach(t -> reply.transaction.add(transMapper.fromInternal(t)));
 		return reply;
 	}
 	

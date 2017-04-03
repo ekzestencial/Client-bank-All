@@ -5,6 +5,7 @@
  */
 package com.mycompany.client.bank.services;
 
+import com.mycompany.client.bank.jpa.Account;
 import com.mycompany.client.bank.jpa.Transaction;
 import com.mycompany.client.bank.repository.AccountRepository;
 import com.mycompany.client.bank.repository.TransactionRepository;
@@ -29,17 +30,7 @@ public class TransactionService {
 	
 	public List<Transaction> getByAccountId(Long id) {
 		//достань транзакции для определенного аккаунта по его айдишки
-		List<Transaction> tr = transactionRep.findByAccountId(accountRep.findOne(id));
-		tr.sort((Transaction t1, Transaction t2) -> {
-			int val = 0;
-			if(t1.getDate().before(t2.getDate())) {
-				val = -1;
-			} else if(t1.getDate().after(t2.getDate())) {
-				val = 1;
-			}
-			return val;
-		});
-                return tr;
+                return transactionRep.findByAccountId(accountRep.findOne(id));
 	}
 
 	public Transaction findByTransactionId(Long id) {
