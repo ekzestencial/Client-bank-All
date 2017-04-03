@@ -5,6 +5,8 @@
  */
 package com.mycompany.client.bank.utils;
 
+import java.math.BigInteger;
+import java.util.Random;
 import java.util.UUID;
 public class EntityIdGenerator {
         public static Long random(){
@@ -14,4 +16,7 @@ public class EntityIdGenerator {
         }
         return l;
     }
+        public static BigInteger BigIntRandom(int size){
+            return BigInteger.probablePrime(size, new Random(System.nanoTime()));
+        }
 }

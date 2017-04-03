@@ -11,17 +11,20 @@ package com.mycompany.client.bank.auth;
  */
 import com.mycompany.client.bank.jpa.Appuser;
 import com.mycompany.client.bank.jpa.Role;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 /**
+ * 
  *
  * @author al
  */
-public class AuthUser implements UserDetails{
+public class AuthUser implements UserDetails, Serializable{
     private final Appuser user;
     Collection<UserAuthority> authorities = new ArrayList<>();
     
@@ -72,5 +75,11 @@ public class AuthUser implements UserDetails{
 	public boolean isEnabled() {
 		return true;
 	}
+                @Override
+        public boolean equals(Object obj){
+        if(!(obj instanceof AuthUser) ) return false;
+        return ((AuthUser) obj).getUsername().equals(this.getUsername()); 
+        }
+
         }
 

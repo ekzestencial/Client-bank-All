@@ -15,6 +15,7 @@ import com.mycompany.client.bank.api.LibBankReply;
 import com.mycompany.client.bank.api.LibTransaction;
 import com.mycompany.client.bank.api.LibTransactionReply;
 import com.mycompany.client.bank.api.PostRequest;
+import com.mycompany.client.bank.auth.SecretProvider;
 import com.mycompany.client.bank.jpa.Account;
 import com.mycompany.client.bank.jpa.Appuser;
 import com.mycompany.client.bank.jpa.Bank;
@@ -45,6 +46,8 @@ public class AccountController {
 	private BankMapper bankMapper;
 	@Autowired
 	private AppUserAndUserDetailsService userService;
+        @Autowired
+        SecretProvider secretProvider;
 	
 	@RequestMapping(path="/account={accountId}", method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public LibTransactionReply getAccountInfoAndTransactions(@PathVariable String accountId) {
@@ -66,7 +69,7 @@ public class AccountController {
 		LibAccount libAcc = new LibAccount();
 		libAcc.bankId = bankService.findByBankName(bank_name).getBankId().toString();
 		libAcc.userId = userService.getUserByName(username).getUserId().toString();
-		libAcc.value = 0.0;
+		libAcc.value = "0";
 		
 		Account acc = accMapper.toInternal(libAcc);
 		accService.addAccount(acc);

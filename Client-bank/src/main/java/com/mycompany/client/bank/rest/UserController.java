@@ -9,6 +9,7 @@ import com.mycompany.client.bank.api.PostRequest;
 import com.mycompany.client.bank.api.User_Info_Reply;
 import com.mycompany.client.bank.auth.AuthUser;
 import com.mycompany.client.bank.auth.AuthorityName;
+import com.mycompany.client.bank.auth.SecretProvider;
 import com.mycompany.client.bank.jpa.Account;
 import com.mycompany.client.bank.jpa.Appuser;
 import com.mycompany.client.bank.jpa.Bank;
@@ -21,7 +22,9 @@ import com.mycompany.client.bank.services.AppUserAndUserDetailsService;
 import com.mycompany.client.bank.services.BankService;
 import com.mycompany.client.bank.services.NotificationMapper;
 import com.mycompany.client.bank.services.NotificationService;
+import com.mycompany.client.bank.utils.CryptMessage;
 import com.mycompany.client.bank.utils.PermisChecker;
+import java.math.BigInteger;
 import java.time.Instant;
 import java.util.Date;
 import java.util.List;
@@ -52,6 +55,8 @@ public class UserController {
     BankService bankService;
     @Autowired
     AccountMapper accountMapper;
+    @Autowired
+    SecretProvider secretProvider;
     
     @RequestMapping(path="/users/all",  method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public LibAppUserAndUserDetailsReply getAllUsers(){
@@ -88,11 +93,12 @@ public class UserController {
         for(Notification notif : lst){
         if(notif.getIsChecked())lst.remove(notif);
         }
-        reply.notif_size=lst.size();
-        reply.wallet=userService.getUserByName(username).getWallet();
-        reply.currentTime=Date.from(Instant.now()).toString();
         Userdetails ud=userService.getUserByName(username).getUserdetails();
-        reply.FullName=ud.getFirstName() + " " + ud.getLastName();
+        List <String> lstParam=CryptMessage.fromInternal(secretProvider.get(PermisChecker.GetAuthUser()).getSuperSecretKey().toString(), String.valueOf(lst.size()),
+        userService.getUserByName(username).getWallet(), ud.getFirstName() + " " + ud.getLastName());
+        reply.notif_size=lstParam.get(0);
+        reply.wallet=lstParam.get(1);
+        reply.FullName=lstParam.get(2);
         return reply;
     }
     @Secured({"ROLE_USER", "ROLE_ADMIN"})
@@ -104,9 +110,10 @@ public class UserController {
         for(Account account : lst){
         LibAccount tempAcc=accountMapper.fromInternal(account);
         Bank tempBank=bankService.findByBankId(account.getBankId().getBankId());
-        tempAcc.bankName=tempBank.getName();
-        tempAcc.CreditPersent=String.valueOf(tempBank.getCreditPersent());
-        tempAcc.DepositPersent=String.valueOf(tempBank.getDepositPersent());
+        List <String> lstParam=CryptMessage.fromInternal(secretProvider.get(PermisChecker.GetAuthUser()).getSuperSecretKey().toString(), tempBank.getName(), String.valueOf(tempBank.getCreditPersent()), String.valueOf(tempBank.getDepositPersent()));
+        tempAcc.bankName = lstParam.get(0);
+        tempAcc.CreditPersent = lstParam.get(1);
+        tempAcc.DepositPersent = lstParam.get(2); 
         reply.accounts.add(tempAcc);
         }
         return reply;

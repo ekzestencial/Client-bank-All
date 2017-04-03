@@ -31,6 +31,11 @@ public class HazelcastConfiguration {
                                 .setName("token-cache")
                                 .setEvictionPolicy(EvictionPolicy.LRU)
                                 .setTimeToLiveSeconds(TEN_MINUES))
-                .setProperty("hazelcast.logging.type", "slf4j");
+                .setProperty("hazelcast.logging.type", "slf4j")
+                .addMapConfig(new MapConfig()
+                                .setName("secret-cacle")
+                                .setEvictionPolicy(EvictionPolicy.LRU)
+                                .setTimeToLiveSeconds(TEN_MINUES))
+                                .setProperty("hazelcast.logging.type", "slf4j");
     }   
 }
