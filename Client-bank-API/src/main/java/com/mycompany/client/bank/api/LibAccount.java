@@ -24,8 +24,6 @@ public class LibAccount {
         public String CreditPersent;
         @XmlElement(required = false)
         public String DepositPersent;
-        @XmlElement(required = false)
-        public Long CreditLimit;
 	
 	@Override
 	public int hashCode() {

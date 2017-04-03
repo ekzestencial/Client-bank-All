@@ -92,6 +92,7 @@ public class AccountController {
 		libAcc.bankId = bankService.findByBankName(bank_name).getBankId().toString();
 		libAcc.userId = userService.getUserByName(username).getUserId().toString();
 		libAcc.value = 0.0;
+		libAcc.credit_limit = 4000L;
 		
 		Account acc = accMapper.toInternal(libAcc);
 		accService.addAccount(acc);
@@ -122,7 +123,7 @@ public class AccountController {
 		Account acc = accService.getAccount(accId);
 		Appuser user = acc.getUserId();
 		
-		if(value < 0 && acc.getValue() + value < -4000.0) {
+		if(value < 0 && acc.getValue() + value < -acc.getCreditLimit()) {
 			reply.error_message = "Превышен кредитный лимит! Введите другую сумму для снятия";
 			return reply;
 		} else if(value > 0 && user.getWallet() - value < 0) {
@@ -155,7 +156,7 @@ public class AccountController {
 		Long accId = Long.valueOf(accountId);
 		Account accFrom = accService.getAccount(accId);
 		
-		if(accFrom.getValue() - value < -4000.0) {
+		if(accFrom.getValue() - value < -accFrom.getCreditLimit()) {
 			reply.error_message = "Превышен кредитный лимит! Введите другую сумму для перевода";
 			reply.account = accMapper.fromInternal(accFrom);
 			transService.getByAccountId(accId).forEach(t -> reply.transaction.add(transMapper.fromInternal(t)));

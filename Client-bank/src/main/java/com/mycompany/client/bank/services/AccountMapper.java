@@ -53,6 +53,7 @@ public class AccountMapper {
 			acc = new Account(newId, 0L, la.value, Date.from(Instant.now()));
 			acc.setBankId(bankRepo.findOne(Long.valueOf(la.bankId)));
 			acc.setUserId(userRepo.findOne(Long.valueOf(la.userId)));
+			acc.setCreditLimit(la.credit_limit);
 		}
 		return acc;
 	}
