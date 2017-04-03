@@ -17,9 +17,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class User_Info_Reply {
     @XmlElement(required = false)
-    public Double wallet;
+    public String wallet;
     @XmlElement(required = false)
-    public Integer notif_size;
+    public String notif_size;
     @XmlElement (required = false)
     public String currentTime;
     @XmlElement (required = false)

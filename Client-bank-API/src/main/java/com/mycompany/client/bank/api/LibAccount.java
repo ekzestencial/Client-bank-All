@@ -9,11 +9,11 @@ public class LibAccount {
 	@XmlElement(required = false)
 	public String accountId;
 	@XmlElement(required = true)
-	public Double value;
+	public String value;
 	@XmlElement(required = false)
 	public String openDate;
         @XmlElement(required = false)
-        public Long credit_limit;
+        public String credit_limit;
 	@XmlElement(required = false)
 	public String userId;
 	@XmlElement(required = false)
@@ -24,8 +24,6 @@ public class LibAccount {
         public String CreditPersent;
         @XmlElement(required = false)
         public String DepositPersent;
-        @XmlElement(required = false)
-        public Long CreditLimit;
 	
 	@Override
 	public int hashCode() {
