@@ -38,7 +38,7 @@ import org.springframework.test.context.junit4.SpringRunner;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-public class AliInOneAccountsTransactionsBankAppUser {
+public class AddAndDeleteAllTransactionsForAccount {
 
 	@Autowired
 	AppUserAndUserDetailsService userService;
@@ -49,7 +49,7 @@ public class AliInOneAccountsTransactionsBankAppUser {
 	@Autowired
 	TransactionService transacservice;
 
-	public AliInOneAccountsTransactionsBankAppUser() {
+	public AddAndDeleteAllTransactionsForAccount() {
 	}
 
 	@BeforeClass
