@@ -19,5 +19,5 @@ public class GenericReply {
     @XmlElement(required=true)
     public String apiVer = "0.0.1";
     @XmlElement(required=false)
-    public String error_message;
+    public String error_message = "";
 }

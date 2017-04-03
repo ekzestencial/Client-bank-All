@@ -123,10 +123,14 @@ public class AccountController {
 		Account acc = accService.getAccount(accId);
 		Appuser user = acc.getUserId();
 		
-		if(value < 0 && acc.getValue() + value < -acc.getCreditLimit()) {
+		if(value < 0 && acc.getValue() + value < -Double.valueOf(acc.getCreditLimit())) {
+			reply.account = accMapper.fromInternal(acc);
+			transService.getByAccountId(accId).forEach(t -> reply.transaction.add(transMapper.fromInternal(t)));
 			reply.error_message = "Превышен кредитный лимит! Введите другую сумму для снятия";
 			return reply;
-		} else if(value > 0 && user.getWallet() - value < 0) {
+		} else if(value > 0 && user.getWallet() - value < 0.0) {
+			reply.account = accMapper.fromInternal(acc);
+			transService.getByAccountId(accId).forEach(t -> reply.transaction.add(transMapper.fromInternal(t)));
 			reply.error_message = "У вас недостаточно средств! Введите другую сумму для пополнения";
 			return reply;
 		}
@@ -155,15 +159,19 @@ public class AccountController {
 		double value = Double.valueOf(req.value);
 		Long accId = Long.valueOf(accountId);
 		Account accFrom = accService.getAccount(accId);
-		
-		if(accFrom.getValue() - value < -accFrom.getCreditLimit()) {
+		if(accFrom.getValue() - value < -Double.valueOf(accFrom.getCreditLimit())) {
 			reply.error_message = "Превышен кредитный лимит! Введите другую сумму для перевода";
 			reply.account = accMapper.fromInternal(accFrom);
 			transService.getByAccountId(accId).forEach(t -> reply.transaction.add(transMapper.fromInternal(t)));
 			return reply;
 		}
 		Account accTo = accService.getAccount(Long.valueOf(req.toAccountId));
-		
+		if(accTo == null) {
+			reply.error_message = "Такого аккаунта не существует";
+			reply.account = accMapper.fromInternal(accFrom);
+			transService.getByAccountId(accId).forEach(t -> reply.transaction.add(transMapper.fromInternal(t)));
+			return reply;
+		}
 		try {
 			accService.transfer(accFrom, accTo, value);
 		} catch (Exception e) {
