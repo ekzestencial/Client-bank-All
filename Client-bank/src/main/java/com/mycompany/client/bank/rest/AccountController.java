@@ -98,26 +98,30 @@ public class AccountController {
 	}
 	
 	@RequestMapping(path="/{accountId}/transaction", method=RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public LibTransactionReply changeWallet(@RequestBody PostRequest req, @PathVariable String accountId) {
+	public LibTransactionReply changeWallet(@RequestBody TransferRequest req, @PathVariable String accountId) {
 		LibTransactionReply reply = new LibTransactionReply();
-		LibTransaction tr = req.transaction;
+		//LibTransaction tr = req.transaction;
+		double value = Double.valueOf(req.value);
 		Long accId = Long.valueOf(accountId);
 		Account acc = accService.getAccount(accId);
 		Appuser user = acc.getUserId();
 		
-		if(tr.value < 0 && acc.getValue() + tr.value < -4000.0) {
+		if(value < 0 && acc.getValue() + value < -4000.0) {
 			reply.error_message = "Превышен кредитный лимит! Введите другую сумму для снятия";
 			return reply;
-		} else if(tr.value > 0 && user.getWallet() - tr.value < 0) {
+		} else if(value > 0 && user.getWallet() - value < 0) {
 			reply.error_message = "У вас недостаточно средств! Введите другую сумму для пополнения";
 			return reply;
 		}
-		acc.setValue(acc.getValue() + tr.value);
-		user.setWallet(user.getWallet() - tr.value);
+		acc.setValue(acc.getValue() + value);
+		user.setWallet(user.getWallet() - value);
 		accService.addAccount(acc);
 		userService.addUser(user);
 		
-		tr.accountId = accId.toString();
+		LibTransaction tr = new LibTransaction();
+		tr.accountId = accountId;
+		tr.value = value;
+		tr.Info = value > 0.0 ? "Пополнения счета из личных средств" : "Снятие средств";
 		transService.addTransaction(transMapper.toInternal(tr));
 		
 		reply.account = accMapper.fromInternal(acc);

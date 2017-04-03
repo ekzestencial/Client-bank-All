@@ -7,6 +7,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class TransferRequest {
 	@XmlElement
 	public String value;
-	@XmlElement
+	@XmlElement(required = false)
 	public String toAccountId;
 }
