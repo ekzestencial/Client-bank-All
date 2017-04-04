@@ -8,6 +8,7 @@ package com.mycompany.client.bank.utils;
 import com.mycompany.client.bank.auth.SecretProvider;
 import com.sun.org.apache.xml.internal.security.algorithms.MessageDigestAlgorithm;
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Field;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -47,6 +48,30 @@ public class CryptMessage {
        }
    }
    return paramLst;
+}
+   public static Object toInternal(String SuperSecret, Object criptStrings){
+       Class curClass=criptStrings.getClass();
+   byte[] syperSecretBytes=null;
+       try {
+           syperSecretBytes = SuperSecret.getBytes("utf-8");
+       } catch (UnsupportedEncodingException ex) {
+           Logger.getLogger(CryptMessage.class.getName()).log(Level.SEVERE, null, ex);
+       }
+   for(Field field : curClass.getDeclaredFields()){
+       try {
+           String str=null;
+           if(field.get(criptStrings)!=null)str = field.get(criptStrings).toString();
+           if(str!=null){
+           byte[] mybyte=str.getBytes("utf-8");
+           int i = 0;
+           ByteTransform(syperSecretBytes, mybyte, i);
+           field.set(criptStrings, new String(mybyte, "utf-8"));
+           }
+       } catch (UnsupportedEncodingException | IllegalArgumentException | IllegalAccessException ex) {
+           Logger.getLogger(CryptMessage.class.getName()).log(Level.SEVERE, null, ex);
+       }
+   }
+   return criptStrings;
 }
    private static void ByteTransform(byte[] syperSecretBytes, byte[] mybyte, int i){
            int j=0;

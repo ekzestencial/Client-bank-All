@@ -48,6 +48,7 @@ public class AccountMapper {
 	
 	public Account toInternal(LibAccount la) {
 		Account acc = null;
+                CryptMessage.toInternal(secretProvider.get(PermisChecker.GetAuthUser()).getSuperSecretKey().toString(), la);
 		if(la.accountId != null) {
 			acc = accRepo.findOne(Long.valueOf(la.accountId));
 			acc.setValue(Double.valueOf(la.value));

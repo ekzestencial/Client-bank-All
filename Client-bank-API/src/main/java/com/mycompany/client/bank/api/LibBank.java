@@ -16,10 +16,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class LibBank {
     @XmlElement(required=false)
     public String bank_id;
-    @XmlElement(required=true)
+    @XmlElement(required=false)
     public String name;
     @XmlElement(required=true)
-    public Integer creditPersent;
+    public String creditPersent;
     @XmlElement(required=true)
-    public Integer depositPersent;
+    public String depositPersent;
 }

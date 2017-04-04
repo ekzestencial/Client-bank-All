@@ -75,6 +75,7 @@ public class UserController {
     
     @RequestMapping(path="/{username}/notifications",  method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public LibNotificationReply getNotifications(@PathVariable String username){
+        if(!PermisChecker.ForUser(username)) return null;
          LibNotificationReply reply = new LibNotificationReply();
         Appuser tmp_user=userService.getUserByName(username);
         if(tmp_user==null)return null;

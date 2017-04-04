@@ -78,12 +78,14 @@ public class AccountController {
 		return reply;
 	}
 	
-	@RequestMapping(path="/banks", method=RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(path="/banks", method=RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public LibBankReply getBanks(@RequestBody LibBank req) {
+                if(req==null)return new LibBankReply();
+                Bank requeBank=bankMapper.toInternal(req);
                 List<Bank> banks = new ArrayList<>();
-                if(req.name!="")banks.addAll(bankService.findByPartBankName(req.name));
+                if(!requeBank.getName().isEmpty())banks.addAll(bankService.findByPartBankName(requeBank.getName()));
                 else banks.addAll(bankService.getAll());
-                banks.retainAll(bankService.findByBankPersent(req.depositPersent, req.creditPersent));
+                banks.retainAll(bankService.findByBankPersent(requeBank.getDepositPersent(), requeBank.getCreditPersent()));
                 LibBankReply reply=new LibBankReply();
                 for(Bank bank : banks){
                 reply.banks.add(bankMapper.fromInternal(bank));
