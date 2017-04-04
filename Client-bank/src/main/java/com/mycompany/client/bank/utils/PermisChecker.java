@@ -13,6 +13,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
  * @author artem
  */
 public class PermisChecker {
+    public static AuthUser GetAuthUser(){
+    return ((AuthUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+    }
     public static boolean ForUserAndAdmin(String username){
     return ForUser(username) || ForAdmin(username);
     }

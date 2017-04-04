@@ -16,6 +16,12 @@ import javax.xml.bind.annotation.XmlRootElement;
     @XmlRootElement
 public class LoginReply {
     @XmlElement
+    public String G;
+    @XmlElement
+    public String P;
+    @XmlElement
+    public String ServerPublicKey;
+    @XmlElement
     public String token="";
     @XmlElement
     public LibAppUserAndUserDetails user;

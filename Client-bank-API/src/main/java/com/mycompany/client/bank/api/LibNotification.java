@@ -13,7 +13,7 @@ public class LibNotification {
 	@XmlElement(required = false)
 	public String date;
 	@XmlElement(required = false)
-	public Long userId;
+	public String userId;
         @XmlElement(required = false)
-        public Boolean isChecked;
+        public String isChecked;
 }

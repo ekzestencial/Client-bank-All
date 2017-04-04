@@ -15,6 +15,7 @@ import com.mycompany.client.bank.api.LibBankReply;
 import com.mycompany.client.bank.api.LibTransaction;
 import com.mycompany.client.bank.api.LibTransactionReply;
 import com.mycompany.client.bank.api.PostRequest;
+import com.mycompany.client.bank.auth.SecretProvider;
 import com.mycompany.client.bank.api.TransferRequest;
 import com.mycompany.client.bank.jpa.Account;
 import com.mycompany.client.bank.jpa.Appuser;
@@ -51,6 +52,8 @@ public class AccountController {
 	private BankMapper bankMapper;
 	@Autowired
 	private AppUserAndUserDetailsService userService;
+        @Autowired
+        SecretProvider secretProvider;
 	
 	@RequestMapping(path = "/delete={accountId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public LibTransactionReply RemoveAllTransactions(@PathVariable String accountId) {
@@ -91,8 +94,8 @@ public class AccountController {
 		LibAccount libAcc = new LibAccount();
 		libAcc.bankId = bankService.findByBankName(bank_name).getBankId().toString();
 		libAcc.userId = userService.getUserByName(username).getUserId().toString();
-		libAcc.value = 0.0;
-		libAcc.credit_limit = 4000L;
+		libAcc.value = "0";
+		libAcc.credit_limit = "4000";
 		
 		Account acc = accMapper.toInternal(libAcc);
 		accService.addAccount(acc);
@@ -101,12 +104,14 @@ public class AccountController {
 		return reply;
 	}
 	
-	@RequestMapping(path="/banks", method=RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(path="/banks", method=RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public LibBankReply getBanks(@RequestBody LibBank req) {
+                if(req==null)return new LibBankReply();
+                Bank requeBank=bankMapper.toInternal(req);
                 List<Bank> banks = new ArrayList<>();
-                if(req.name!="")banks.addAll(bankService.findByPartBankName(req.name));
+                if(!requeBank.getName().isEmpty())banks.addAll(bankService.findByPartBankName(requeBank.getName()));
                 else banks.addAll(bankService.getAll());
-                banks.retainAll(bankService.findByBankPersent(req.depositPersent, req.creditPersent));
+                banks.retainAll(bankService.findByBankPersent(requeBank.getDepositPersent(), requeBank.getCreditPersent()));
                 LibBankReply reply=new LibBankReply();
                 for(Bank bank : banks){
                 reply.banks.add(bankMapper.fromInternal(bank));
