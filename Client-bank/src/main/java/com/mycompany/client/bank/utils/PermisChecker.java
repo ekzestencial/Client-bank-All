@@ -14,12 +14,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
  */
 public class PermisChecker {
     public static boolean ForUserAndAdmin(String username){
-    return ForUser(username) || ForAdmin(username) ;
+    return ForUser(username) || ForAdmin(username);
     }
     public static boolean ForUser(String username){
     return ((AuthUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAppUser().getUsername().equals(username);
     }
     public static boolean ForAdmin(String username){
-    return ((AuthUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAppUser().getRoleId().getRoleId() == 0L;
+    return ((AuthUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAppUser().getRoleId().getRoleId().equals(0L);
     }
 }

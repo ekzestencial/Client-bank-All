@@ -78,10 +78,10 @@ public class UserController {
         }
         return reply;
     }
-     @Secured({"ROLE_USER"})
+     @Secured({"ROLE_USER", "ROLE_ADMIN"})
      @RequestMapping(path="/users/{username}/sliderInfo",  method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public User_Info_Reply getAppInfoByUserName(@PathVariable String username){
-        if(!PermisChecker.ForUser(username)) return null;
+    	 if(!PermisChecker.ForUserAndAdmin(username)) return null;
         User_Info_Reply reply=new User_Info_Reply();
         userService.getUserByName(username).setLastActivity(Date.from(Instant.now()));
         List<Notification> lst=notifService.getAllUserNotifications(userService.getUserByName(username));
